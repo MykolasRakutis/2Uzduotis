@@ -4,8 +4,19 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
+using std::setw;
+using std::left;
+using std::right;
+using std::fixed;
 
 struct Studentas
 {
@@ -43,30 +54,57 @@ Studentas Stud_ivestis(int nr)
 
     cin.ignore(1000, '\n');
 
-    cout << "Iveskite namu darbu pazymius (baigti tuscia eilute):" << endl;
-    while (true)
-    {
-        getline(cin, eilute);
-        if (eilute.empty()) break;
+    int pasirinkimas;
+    cout << "\nPasirinkite duomenu ivedimo buda:\n";
+    cout << "1. Ivesti rankiniu budu\n";
+    cout << "2. Generuoti atsitiktinai\n";
+    cout << "Jusu pasirinkimas: ";
+    cin >> pasirinkimas;
+    cin.ignore(1000, '\n');
 
-        stringstream ss(eilute);
-        while (ss >> laik_paz)
+    if (pasirinkimas == 2)
+    {
+        int kiek;
+        cout << "Kiek namu darbu pazymiu generuoti?: ";
+        cin >> kiek;
+        cin.ignore(1000, '\n');
+
+        cout << "Sugeneruoti namu darbu pazymiai: ";
+        for (int i = 0; i < kiek; i++)
         {
+            laik_paz = rand() % 11;
             pirmas.ndpaz.push_back(laik_paz);
             sum += laik_paz;
+            cout << laik_paz << " ";
         }
+        cout << endl;
+
+        pirmas.egzrez = rand() % 11;
+        cout << "Sugeneruotas egzamino rezultatas: " << pirmas.egzrez << endl;
+    }
+    else
+    {
+        cout << "Iveskite namu darbu pazymius (baigti tuscia eilute):" << endl;
+        while (true)
+        {
+            getline(cin, eilute);
+            if (eilute.empty()) break;
+
+            stringstream ss(eilute);
+            while (ss >> laik_paz)
+            {
+                pirmas.ndpaz.push_back(laik_paz);
+                sum += laik_paz;
+            }
+        }
+
+        cout << "Iveskite egzamino rezultata: ";
+        cin >> pirmas.egzrez;
+        cin.ignore(1000, '\n');
     }
 
-    cout << "Iveskite egzamino rezultata: ";
-    cin >> pirmas.egzrez;
-
     int n = pirmas.ndpaz.size();
-    double vid;
-    if (n > 0)
-        vid = double(sum) / n;
-    else
-        vid = 0;
-
+    double vid = (n > 0) ? double(sum) / n : 0;
     pirmas.galutinis_vid = vid * 0.4 + pirmas.egzrez * 0.6;
 
     double med = MedSkaiciavimas(pirmas.ndpaz);
@@ -77,11 +115,13 @@ Studentas Stud_ivestis(int nr)
 
 int main()
 {
-    cout << "Laba diena" << endl;
+    srand(time(0));
+
+    cout << "Sveiki" << endl;
     vector<Studentas> Grupe;
     int m;
 
-    cout << "Kiek studentu grupeje?: ";
+    cout << "Kiek studentu yra grupeje?: ";
     cin >> m;
     cin.ignore(1000, '\n');
 
