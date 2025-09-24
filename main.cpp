@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 using std::cout;
@@ -19,9 +20,25 @@ struct Studentas
     string pavarde;
     vector <int> ndpaz;
     int egzrez;
-    double galutinis;
+    double galutinis_vid;
+    double galutinis_med;
 
 };
+double MedSkaiciavimas(vector<int> paz)
+{
+    sort(paz.begin(), paz.end());
+
+    int pazsk = paz.size();
+    if (pazsk == 0) return 0;
+
+    if (pazsk % 2 == 0)
+    {
+        return (paz[pazsk / 2 - 1] + paz[pazsk / 2]) / 2.0;
+    } else {
+        return paz[pazsk / 2];
+    }
+}
+
 
 Studentas Stud_ivestis(int nr)
 {
@@ -45,7 +62,9 @@ Studentas Stud_ivestis(int nr)
 
     cout << "Iveskite egzamino rezultata: ";
     cin >> pirmas.egzrez;
-    pirmas.galutinis = double(sum) / double(n) * 0.4 + pirmas.egzrez * 0.6;
+    pirmas.galutinis_vid = double(sum) / double(n) * 0.4 + pirmas.egzrez * 0.6;
+    double med = MedSkaiciavimas(pirmas.ndpaz);
+    pirmas.galutinis_med = med * 0.4 + pirmas.egzrez * 0.6;
     return pirmas;
 }
 
@@ -65,13 +84,15 @@ int main()
     cout << "\nStudento informacija:" << endl;
     cout << left << setw(15) << "Vardas"
          << "|" << left << setw(20) << "Pavarde"
-         << "|" << left << setw(10) << "Galutinis" << endl;
-    cout << string(50, '-') << endl;
+         << "|" << left << setw(15) << "Galutinis(vid)"
+         << "|" << left << setw(15) << "Galutinis(med)" << endl;
+    cout << string(65, '-') << endl;
 
     for (const auto &Studentas : Grupe) {
         cout << left << setw(15) << Studentas.vardas
              << "|" << left << setw(20) << Studentas.pavarde
-             << "|" << left << setw(10) << fixed << setprecision(2) << Studentas.galutinis
+             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_vid
+             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med
              << endl;
     }
 
