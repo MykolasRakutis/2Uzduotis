@@ -23,11 +23,11 @@ struct Studentas
 
 };
 
-Studentas Stud_ivestis()
+Studentas Stud_ivestis(int nr)
 {
     int n, laik_paz, sum = 0;
     Studentas pirmas;
-    cout << "Iveskite duomenis << endl;
+    cout << "\nIveskite " << nr << "-ojo studento duomenis" << endl;
     cout << "Vardas ";
     cin >> pirmas.vardas;
     cout << "Pavarde: ";
@@ -59,15 +59,21 @@ int main()
 
     for (auto z = 0; z < m; z++)
     {
-        Grupe.push_back(Stud_ivestis());
+        Grupe.push_back(Stud_ivestis(z+1));
     }
 
     cout << "\nStudento informacija:" << endl;
-    cout << left << setw(10) << "Vardas" << "|"
-<< left << setw(15) << "Pavarde" << "|"
-<< left << setw(10) << "Vidurkis" << endl;
-    cout << string(40, '-') << endl;
+    cout << left << setw(15) << "Vardas"
+         << "|" << left << setw(20) << "Pavarde"
+         << "|" << left << setw(10) << "Galutinis" << endl;
+    cout << string(50, '-') << endl;
 
+    for (const auto &Studentas : Grupe) {
+        cout << left << setw(15) << Studentas.vardas
+             << "|" << left << setw(20) << Studentas.pavarde
+             << "|" << left << setw(10) << fixed << setprecision(2) << Studentas.galutinis
+             << endl;
+    }
 
     return 0;
 }
