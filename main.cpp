@@ -217,5 +217,25 @@ if (rusiavimas == 1) {
              << endl;
     }
 
+  ofstream fout("rezultatai.txt");
+    if (!fout) {
+        cerr << "Nepavyko sukurti failo rezultatai.txt" << endl;
+        return 1;
+    }
+
+    fout << left << setw(15) << "Pavarde"
+         << "|" << left << setw(20) << "Vardas"
+         << "|" << left << setw(15) << "Galutinis(vid)"
+         << "|" << left << setw(15) << "Galutinis(med)" << endl;
+    fout << string(70, '-') << endl;
+
+    for (const auto &Studentas : Grupe) {
+        fout << left << setw(15) << Studentas.pavarde
+             << "|" << left << setw(20) << Studentas.vardas
+             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_vid
+             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med
+             << endl;
+    }
+
     return 0;
 }
