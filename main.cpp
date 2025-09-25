@@ -146,7 +146,7 @@ int main()
     cout << "Sveiki!" << endl;
     cout << "Pasirinkite duomenu gavimo buda:\n";
     cout << "1. Vesti/generuoti patiems\n";
-    cout << "2. Nuskaityti is failo (studentai.txt)\n";
+    cout << "2. Nuskaityti is failo (kursiokai.txt)\n";
     cout << "Jusu pasirinkimas: ";
     int pasirinkimas;
     cin >> pasirinkimas;
@@ -179,46 +179,65 @@ int main()
             }
         }
     }
+
     int rusiavimas;
-cout << "\nPasirinkite rusiavimo kriteriju:\n";
-cout << "1. Pagal pavarde\n";
-cout << "2. Pagal varda\n";
-cout << "Jusu pasirinkimas: ";
-cin >> rusiavimas;
-cin.ignore(1000, '\n');
+    cout << "\nPasirinkite rusiavimo kriteriju:\n";
+    cout << "1. Pagal pavarde\n";
+    cout << "2. Pagal varda\n";
+    cout << "Jusu pasirinkimas: ";
+    cin >> rusiavimas;
+    cin.ignore(1000, '\n');
 
-if (rusiavimas == 1) {
-    sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-        if (a.pavarde == b.pavarde)
-            return a.vardas < b.vardas;
-        return a.pavarde < b.pavarde;
-    });
-} else if (rusiavimas == 2) {
-    sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-        if (a.vardas == b.vardas)
+    if (rusiavimas == 1) {
+        sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+            if (a.pavarde == b.pavarde)
+                return a.vardas < b.vardas;
             return a.pavarde < b.pavarde;
-        return a.vardas < b.vardas;
-    });
-}
+        });
+    } else if (rusiavimas == 2) {
+        sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+            if (a.vardas == b.vardas)
+                return a.pavarde < b.pavarde;
+            return a.vardas < b.vardas;
+        });
+    }
 
- ofstream fout("rezultatai.txt");
+    int rezultatoTipas;
+    cout << "\nPasirinkite kokius galutinius rezultatus isvesti:\n";
+    cout << "1. Tik su vidurkiu\n";
+    cout << "2. Tik su mediana\n";
+    cout << "3. Abu\n";
+    cout << "Jusu pasirinkimas: ";
+    cin >> rezultatoTipas;
+    cin.ignore(1000, '\n');
+
+    ofstream fout("rezultatai.txt");
     if (!fout) {
         cerr << "Nepavyko sukurti failo rezultatai.txt" << endl;
         return 1;
     }
 
     fout << left << setw(15) << "Pavarde"
-         << "|" << left << setw(20) << "Vardas"
-         << "|" << left << setw(15) << "Galutinis(vid)"
-         << "|" << left << setw(15) << "Galutinis(med)" << endl;
+         << "|" << left << setw(20) << "Vardas";
+
+    if (rezultatoTipas == 1 || rezultatoTipas == 3)
+        fout << "|" << left << setw(15) << "Galutinis(vid)";
+    if (rezultatoTipas == 2 || rezultatoTipas == 3)
+        fout << "|" << left << setw(15) << "Galutinis(med)";
+
+    fout << endl;
     fout << string(70, '-') << endl;
 
     for (const auto &Studentas : Grupe) {
         fout << left << setw(15) << Studentas.pavarde
-             << "|" << left << setw(20) << Studentas.vardas
-             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_vid
-             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med
-             << endl;
+             << "|" << left << setw(20) << Studentas.vardas;
+
+        if (rezultatoTipas == 1 || rezultatoTipas == 3)
+            fout << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_vid;
+        if (rezultatoTipas == 2 || rezultatoTipas == 3)
+            fout << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med;
+
+        fout << endl;
     }
 
     fout.close();
