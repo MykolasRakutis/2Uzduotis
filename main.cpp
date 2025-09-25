@@ -179,6 +179,9 @@ int main()
             }
         }
     }
+    sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+    return a.pavarde < b.pavarde;
+    });
 
     cout << "\nStudento informacija:" << endl;
     cout << left << setw(15) << "Pavarde"
