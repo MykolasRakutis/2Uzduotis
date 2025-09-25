@@ -29,6 +29,14 @@ struct Studentas
     double galutinis_med;
 };
 
+bool tikRaides(const string &s) {
+    for (char c : s) {
+        if (!isalpha(c)) return false;
+    }
+    return true;
+}
+
+
 double MedSkaiciavimas(vector<int> paz)
 {
     sort(paz.begin(), paz.end());
@@ -48,10 +56,21 @@ Studentas Stud_ivestis(int nr)
     Studentas pirmas;
 
     cout << "\nIveskite " << nr << "-ojo studento duomenis" << endl;
-    cout << "Vardas: ";
-    cin >> pirmas.vardas;
-    cout << "Pavarde: ";
-    cin >> pirmas.pavarde;
+    do {
+        cout << "Vardas: ";
+        cin >> pirmas.vardas;
+        if (!tikRaides(pirmas.vardas)){
+                cout << "Varde negali buti skaiciu ar simboliu\n";
+        }
+    }while (!tikRaides(pirmas.vardas));
+
+    do {
+        cout << "Pavarde: ";
+        cin >> pirmas.pavarde;
+        if (!tikRaides(pirmas.pavarde)) {
+            cout << "Pavardeje negali buti skaiciu ar simboliu\n";
+        }
+    } while (!tikRaides(pirmas.pavarde));
 
     cin.ignore(1000, '\n');
 
@@ -86,21 +105,41 @@ Studentas Stud_ivestis(int nr)
     else
     {
         cout << "Iveskite namu darbu pazymius (baigti tuscia eilute):" << endl;
-        while (true)
-        {
-            getline(cin, eilute);
-            if (eilute.empty()) break;
+while (true)
+{
+    getline(cin, eilute);
+    if (eilute.empty()) break;
 
-            stringstream ss(eilute);
-            while (ss >> laik_paz)
-            {
-                pirmas.ndpaz.push_back(laik_paz);
-                sum += laik_paz;
+    stringstream ss(eilute);
+    while (ss >> laik_paz)
+    {
+        if (laik_paz < 0 || laik_paz > 10) {
+            cout << "Pazymys turi buti tarp 0 ir 10\n";
+        } else {
+            pirmas.ndpaz.push_back(laik_paz);
+            sum += laik_paz;
+        }
+    }
+
+    if (ss.fail() && !ss.eof()) {
+        cout << "Pazymys turi buti skaicius\n";
+        ss.clear();
+    }
+}
+        while (true) {
+            cout << "Iveskite egzamino rezultata: ";
+            cin >> eilute;
+            bool valid = true;
+            for (char c : eilute) {
+                if (!isdigit(c)) { valid = false; break; }
+            }
+            if (valid) {
+                pirmas.egzrez = stoi(eilute);
+                break;
+            } else {
+                cout << "Egzaminas turi buti skaicius\n";
             }
         }
-
-        cout << "Iveskite egzamino rezultata: ";
-        cin >> pirmas.egzrez;
         cin.ignore(1000, '\n');
     }
 
@@ -164,7 +203,7 @@ int main()
         }
     }
     else if (pasirinkimas == 2) {
-        string failo_pav = "kursiokai.txt";
+        string failo_pav = "studentai10000.txt";
         ifstream fin(failo_pav);
         if (!fin) {
             cerr << "Nepavyko atidaryti failo: " << failo_pav << endl;
