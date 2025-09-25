@@ -179,9 +179,27 @@ int main()
             }
         }
     }
+    int rusiavimas;
+cout << "\nPasirinkite rusiavimo kriteriju:\n";
+cout << "1. Pagal pavarde\n";
+cout << "2. Pagal varda\n";
+cout << "Jusu pasirinkimas: ";
+cin >> rusiavimas;
+cin.ignore(1000, '\n');
+
+if (rusiavimas == 1) {
     sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-    return a.pavarde < b.pavarde;
+        if (a.pavarde == b.pavarde)
+            return a.vardas < b.vardas;
+        return a.pavarde < b.pavarde;
     });
+} else if (rusiavimas == 2) {
+    sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+        if (a.vardas == b.vardas)
+            return a.pavarde < b.pavarde;
+        return a.vardas < b.vardas;
+    });
+}
 
     cout << "\nStudento informacija:" << endl;
     cout << left << setw(15) << "Pavarde"
