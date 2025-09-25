@@ -201,23 +201,7 @@ if (rusiavimas == 1) {
     });
 }
 
-    cout << "\nStudento informacija:" << endl;
-    cout << left << setw(15) << "Pavarde"
-         << "|" << left << setw(20) << "Vardas"
-         << "|" << left << setw(15) << "Galutinis(vid)"
-         << "|" << left << setw(15) << "Galutinis(med)" << endl;
-    cout << string(70, '-') << endl;
-
-    for (const auto &Studentas : Grupe)
-    {
-        cout << left << setw(15) << Studentas.pavarde
-             << "|" << left << setw(20) << Studentas.vardas
-             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_vid
-             << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med
-             << endl;
-    }
-
-  ofstream fout("rezultatai.txt");
+ ofstream fout("rezultatai.txt");
     if (!fout) {
         cerr << "Nepavyko sukurti failo rezultatai.txt" << endl;
         return 1;
@@ -236,6 +220,9 @@ if (rusiavimas == 1) {
              << "|" << left << setw(15) << fixed << setprecision(2) << Studentas.galutinis_med
              << endl;
     }
+
+    fout.close();
+    cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 
     return 0;
 }
