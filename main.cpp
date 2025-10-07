@@ -177,15 +177,52 @@ Studentas Failas(string eilute)
     return s;
 }
 
+void GeneruotiFaila(const string &failo_pav, int kiekis) {
+    ofstream fout(failo_pav);
+    if (!fout) {
+        cerr << "Nepavyko sukurti failo: " << failo_pav << endl;
+        return;
+    }
+
+    fout << "Pavarde Vardas ND1 ND2 ND3 ND4 ND5 Egzaminas\n";
+
+    for (int i = 1; i <= kiekis; ++i) {
+        fout << "Pavarde" << i << " "
+             << "Vardas" << i << " ";
+
+        for (int j = 0; j < 5; ++j) {
+            fout << rand() % 11 << " ";
+        }
+
+        fout << rand() % 11 << "\n";
+    }
+
+    fout.close();
+    cout << "Failas sukurtas: " << failo_pav << " (" << kiekis << " irasu)" << endl;
+    }
+
 int main()
 {
     srand(time(0));
+    int kurti;
+    cout << "Ar norite sugeneruoti 5 studentu failus? (1 - Taip, 0 - Ne): ";
+    cin >> kurti;
+    cin.ignore(1000, '\n');
+
+    if (kurti == 1) {
+        GeneruotiFaila("studentai_1000.txt", 1000);
+        GeneruotiFaila("studentai_10000.txt", 10000);
+        GeneruotiFaila("studentai_100000.txt", 100000);
+        GeneruotiFaila("studentai_1000000.txt", 1000000);
+        GeneruotiFaila("studentai_10000000.txt", 10000000);
+    }
+
     vector<Studentas> Grupe;
 
     cout << "Sveiki!" << endl;
     cout << "Pasirinkite duomenu gavimo buda:\n";
     cout << "1. Vesti/generuoti patiems\n";
-    cout << "2. Nuskaityti is failo (kursiokai.txt)\n";
+    cout << "2. Nuskaityti is failo\n";
     cout << "Jusu pasirinkimas: ";
     int pasirinkimas;
     cin >> pasirinkimas;
@@ -202,13 +239,22 @@ int main()
             Grupe.push_back(Stud_ivestis(z + 1));
         }
     }
-    else if (pasirinkimas == 2) {
-        string failo_pav = "studentai10000.txt";
-        ifstream fin(failo_pav);
+
+   else if (pasirinkimas == 2) {
+    string failo_pav;
+    ifstream fin;
+
+    while (true) {
+        cout << "Iveskite failo pavadinima (pvz.: studentai_1000.txt): ";
+        cin >> failo_pav;
+        fin.open(failo_pav);
         if (!fin) {
-            cerr << "Nepavyko atidaryti failo: " << failo_pav << endl;
-            return 1;
+            cout << "Nepavyko atidaryti failo: " << failo_pav << ". Bandykite dar karta.\n";
+            fin.clear();
+        } else {
+            break;
         }
+    }
 
         string eilute;
         getline(fin, eilute);
