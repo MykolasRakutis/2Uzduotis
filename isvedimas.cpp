@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <chrono>
 
 using std::ofstream;
 using std::cout;
@@ -85,9 +86,6 @@ void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas) {
     sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
     sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
 
-    ofstream foutV("vargsiukai.txt");
-    ofstream foutK("kietiakiai.txt");
-
     string stulpelioPav;
     if (naudotiVidurki) {
         stulpelioPav = "Galutinis(vid)";
@@ -116,17 +114,27 @@ void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas) {
         }
     };
 
+    auto startV = std::chrono::high_resolution_clock::now();
+    ofstream foutV("vargsiukai.txt");
     spausdinti(foutV, vargsiukai);
-    spausdinti(foutK, kietiakiai);
-
     foutV.close();
-    foutK.close();
+    auto endV = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffV = endV - startV;
 
-    cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt (skirstyta pagal ";
+    auto startK = std::chrono::high_resolution_clock::now();
+    ofstream foutK("kietiakiai.txt");
+    spausdinti(foutK, kietiakiai);
+    foutK.close();
+    auto endK = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffK = endK - startK;
+
+    cout << "\nSukurti failai (skirstyta pagal ";
     if (naudotiVidurki) {
         cout << "vidurki";
     } else {
         cout << "mediana";
     }
-    cout << ")" << endl;
+    cout << "):" << endl;
+    cout << "vargsiukai.txt sukurtas per: " << fixed << setprecision(6) << diffV.count() << " sekundziu" << endl;
+    cout << "kietiakiai.txt sukurtas per: " << fixed << setprecision(6) << diffK.count() << " sekundziu" << endl;
 }
