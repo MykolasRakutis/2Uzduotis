@@ -7,7 +7,6 @@
 using std::vector;
 
 void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas);
-
-void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas);
+void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas);
 
 #endif

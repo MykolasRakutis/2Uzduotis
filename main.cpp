@@ -51,6 +51,8 @@ int main()
     double skaitymolaikas = 0;
     double rusiavimolaikas = 0;
     double isvedimolaikas = 0;
+    double kietiakiuLaikas = 0;
+    double vargsiukuLaikas = 0;
     string failo_pav;
 
     if (pasirinkimas == 1) {
@@ -136,17 +138,23 @@ int main()
     cin >> skirstymoTipas;
     cin.ignore(1000, '\n');
 
-    SkirstymasIFailus(Grupe, skirstymoTipas, rusiavimolaikas, isvedimolaikas);
+        cout << "Failo vargsiukai.txt sukurimo laikas: "
+             << fixed << setprecision(6) << vargsiukuLaikas << endl;
+        cout << "Failo kietiakiai.txt sukurimo laikas: "
+             << fixed << setprecision(6) << kietiakiuLaikas << endl;
+
+
+    SkirstymasIFailus(Grupe, skirstymoTipas, rusiavimolaikas, isvedimolaikas, vargsiukuLaikas, kietiakiuLaikas);
 
     if (pasirinkimas == 2) {
+        double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
- double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
-
-        cout << "\nFailo " << failo_pav << " irasu nuskaitymo laikas: "
+        cout << string(70, '-') << endl;
+        cout << "\nFailo " << failo_pav << " failo nuskaitymo laikas: "
              << fixed << setprecision(6) << skaitymolaikas << endl;
-        cout << "Failo " << failo_pav << " irasu dalijimo i dvigrupes laikas, panaikinant pradini vektore: "
+        cout << "Failo " << failo_pav << " irasu rusiavimo i failus laikas: "
              << fixed << setprecision(6) << rusiavimolaikas << endl;
-        cout << "Failo " << failo_pav << " irasu nelaimingy irasymo i faila laikas: "
+        cout << "Failo " << failo_pav << " irasu isvedimo i failus laikas: "
              << fixed << setprecision(6) << isvedimolaikas << endl;
         cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << endl;
     }

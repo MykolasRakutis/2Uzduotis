@@ -50,7 +50,7 @@ void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas) {
     cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 }
 
-void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas) {
+void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas) {
     bool naudotiVidurki = (skirstymoTipas == 1);
 
     auto startRusiavimas = std::chrono::high_resolution_clock::now();
@@ -125,6 +125,7 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
 
     auto startIsvedimas = std::chrono::high_resolution_clock::now();
 
+    auto startVargsiukai = std::chrono::high_resolution_clock::now();
     ofstream foutV("vargsiukai.txt");
     if (!foutV) {
         cerr << "Nepavyko sukurti failo vargsiukai.txt" << endl;
@@ -132,7 +133,11 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
     }
     spausdinti(foutV, vargsiukai);
     foutV.close();
+    auto endVargsiukai = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffVargsiukai = endVargsiukai - startVargsiukai;
+    vargsiukuLaikas = diffVargsiukai.count();
 
+    auto startKietiakiai = std::chrono::high_resolution_clock::now();
     ofstream foutK("kietiakiai.txt");
     if (!foutK) {
         cerr << "Nepavyko sukurti failo kietiakiai.txt" << endl;
@@ -140,10 +145,12 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
     }
     spausdinti(foutK, kietiakiai);
     foutK.close();
+    auto endKietiakiai = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffKietiakiai = endKietiakiai - startKietiakiai;
+    kietiakiuLaikas = diffKietiakiai.count();
 
     auto endIsvedimas = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diffIsvedimas = endIsvedimas - startIsvedimas;
     isvedimolaikas = diffIsvedimas.count();
 
-    cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt" << endl;
 }
