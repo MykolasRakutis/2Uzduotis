@@ -7,6 +7,8 @@
 #include "ivedimas.h"
 #include "failai.h"
 #include "isvedimas.h"
+#include <chrono>
+#include <iomanip>
 
 using std::cout;
 using std::cin;
@@ -14,6 +16,10 @@ using std::endl;
 using std::ifstream;
 using std::getline;
 using std::sort;
+using std::setprecision;
+using std::fixed;
+using std::setw;
+using std::left;
 
 int main()
 {
@@ -33,6 +39,7 @@ int main()
 
     vector<Studentas> Grupe;
 
+    cout << "\nSveiki!" << endl;
     cout << "Pasirinkite duomenu gavimo buda:\n";
     cout << "1. Vesti/generuoti patiems\n";
     cout << "2. Nuskaityti is failo\n";
@@ -40,6 +47,11 @@ int main()
     int pasirinkimas;
     cin >> pasirinkimas;
     cin.ignore(1000, '\n');
+
+    double skaitymolaikas = 0;
+    double rusiavimolaikas = 0;
+    double isvedimolaikas = 0;
+    string failo_pav;
 
     if (pasirinkimas == 1) {
         int m;
@@ -53,7 +65,6 @@ int main()
         }
     }
     else if (pasirinkimas == 2) {
-        string failo_pav;
         ifstream fin;
 
         while (true) {
@@ -68,6 +79,8 @@ int main()
             }
         }
 
+        auto startSkaitymas = std::chrono::high_resolution_clock::now();
+
         string eilute;
         getline(fin, eilute);
         while (getline(fin, eilute)) {
@@ -76,6 +89,10 @@ int main()
             }
         }
         fin.close();
+
+        auto endSkaitymas = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diffSkaitymas = endSkaitymas - startSkaitymas;
+        skaitymolaikas = diffSkaitymas.count();
     }
 
     int rusiavimas;
@@ -119,7 +136,20 @@ int main()
     cin >> skirstymoTipas;
     cin.ignore(1000, '\n');
 
-    SkirstymasIFailus(Grupe, skirstymoTipas);
+    SkirstymasIFailus(Grupe, skirstymoTipas, rusiavimolaikas, isvedimolaikas);
+
+    if (pasirinkimas == 2) {
+
+ double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
+
+        cout << "\nFailo " << failo_pav << " irasu nuskaitymo laikas: "
+             << fixed << setprecision(6) << skaitymolaikas << endl;
+        cout << "Failo " << failo_pav << " irasu dalijimo i dvigrupes laikas, panaikinant pradini vektore: "
+             << fixed << setprecision(6) << rusiavimolaikas << endl;
+        cout << "Failo " << failo_pav << " irasu nelaimingy irasymo i faila laikas: "
+             << fixed << setprecision(6) << isvedimolaikas << endl;
+        cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << endl;
+    }
 
     return 0;
 }

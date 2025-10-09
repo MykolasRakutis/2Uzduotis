@@ -8,6 +8,6 @@ using std::vector;
 
 void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas);
 
-void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas);
+void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas);
 
 #endif

@@ -50,11 +50,16 @@ void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas) {
     cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 }
 
-void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas) {
+void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas) {
+    bool naudotiVidurki = (skirstymoTipas == 1);
+
+    auto startRusiavimas = std::chrono::high_resolution_clock::now();
+
     vector<Studentas> vargsiukai;
     vector<Studentas> kietiakiai;
 
-    bool naudotiVidurki = (skirstymoTipas == 1);
+    vargsiukai.reserve(grupe.size() / 2);
+    kietiakiai.reserve(grupe.size() / 2);
 
     for (const auto &st : grupe) {
         double galutinis;
@@ -86,6 +91,10 @@ void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas) {
     sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
     sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
 
+    auto endRusiavimas = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffRusiavimas = endRusiavimas - startRusiavimas;
+    rusiavimolaikas = diffRusiavimas.count();
+
     string stulpelioPav;
     if (naudotiVidurki) {
         stulpelioPav = "Galutinis(vid)";
@@ -114,27 +123,27 @@ void SkirstymasIFailus(const vector<Studentas> &grupe, int skirstymoTipas) {
         }
     };
 
-    auto startV = std::chrono::high_resolution_clock::now();
+    auto startIsvedimas = std::chrono::high_resolution_clock::now();
+
     ofstream foutV("vargsiukai.txt");
+    if (!foutV) {
+        cerr << "Nepavyko sukurti failo vargsiukai.txt" << endl;
+        return;
+    }
     spausdinti(foutV, vargsiukai);
     foutV.close();
-    auto endV = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diffV = endV - startV;
 
-    auto startK = std::chrono::high_resolution_clock::now();
     ofstream foutK("kietiakiai.txt");
+    if (!foutK) {
+        cerr << "Nepavyko sukurti failo kietiakiai.txt" << endl;
+        return;
+    }
     spausdinti(foutK, kietiakiai);
     foutK.close();
-    auto endK = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diffK = endK - startK;
 
-    cout << "\nSukurti failai (skirstyta pagal ";
-    if (naudotiVidurki) {
-        cout << "vidurki";
-    } else {
-        cout << "mediana";
-    }
-    cout << "):" << endl;
-    cout << "vargsiukai.txt sukurtas per: " << fixed << setprecision(6) << diffV.count() << " sekundziu" << endl;
-    cout << "kietiakiai.txt sukurtas per: " << fixed << setprecision(6) << diffK.count() << " sekundziu" << endl;
+    auto endIsvedimas = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diffIsvedimas = endIsvedimas - startIsvedimas;
+    isvedimolaikas = diffIsvedimas.count();
+
+    cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt" << endl;
 }

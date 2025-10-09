@@ -1,4 +1,3 @@
-
 #ifndef SKAICIAVIMAI_H
 #define SKAICIAVIMAI_H
 
