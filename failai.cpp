@@ -4,12 +4,16 @@
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
+#include <chrono>
+#include <iomanip>
 
 using std::stringstream;
 using std::ofstream;
 using std::cerr;
 using std::cout;
 using std::endl;
+using std::fixed;
+using std::setprecision;
 
 Studentas Failas(string eilute)
 {
@@ -40,6 +44,8 @@ Studentas Failas(string eilute)
 }
 
 void GeneruotiFaila(const string &failo_pav, int kiekis) {
+    auto start = std::chrono::high_resolution_clock::now();
+
     ofstream fout(failo_pav);
     if (!fout) {
         cerr << "Nepavyko sukurti failo: " << failo_pav << endl;
@@ -60,5 +66,10 @@ void GeneruotiFaila(const string &failo_pav, int kiekis) {
     }
 
     fout.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+
     cout << "Failas sukurtas: " << failo_pav << " (" << kiekis << " irasu)" << endl;
+    cout << "Sugaista laiko: " << fixed << setprecision(6) << diff.count() << " sekundziu" << endl << endl;
 }
