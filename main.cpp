@@ -25,7 +25,7 @@ int main()
 {
     srand(time(0));
 
-    cout << "=== NAUDOJAMAS KONTEINERIS: " << CONTAINER_TYPE << " ===" << endl << endl;
+    cout << "Naudojamas konteineris: " << CONTAINER_TYPE << endl << endl;
 
     int kurti;
     cout << "Ar norite sugeneruoti 5 studentu failus? (1 - Taip, 0 - Ne): ";
@@ -162,9 +162,7 @@ int main()
     if (pasirinkimas == 2) {
         double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
-        cout << "\n" << string(70, '=') << endl;
-        cout << "KONTEINERIS: " << CONTAINER_TYPE << endl;
-        cout << string(70, '=') << endl;
+        cout << "Konteineris: " << CONTAINER_TYPE << endl;
         cout << "Failo " << failo_pav << " irasu nuskaitymo laikas: "
              << fixed << setprecision(6) << skaitymolaikas << endl;
         cout << "Failo " << failo_pav << " irasu dalijimo i dvigrupes laikas: "
@@ -176,7 +174,6 @@ int main()
         cout << "Failo " << failo_pav << " irasu isvedimo i failus laikas: "
              << fixed << setprecision(6) << isvedimolaikas << endl;
         cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << endl;
-        cout << string(70, '=') << endl;
     }
 
     return 0;
