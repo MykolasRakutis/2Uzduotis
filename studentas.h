@@ -3,9 +3,21 @@
 
 #include <string>
 #include <vector>
+#include <list>
 
 using std::string;
 using std::vector;
+using std::list;
+
+#define USE_VECTOR
+
+#ifdef USE_LIST
+    #define CONTAINER list
+    #define CONTAINER_TYPE "std::list"
+#else
+    #define CONTAINER vector
+    #define CONTAINER_TYPE "std::vector"
+#endif
 
 struct Studentas
 {

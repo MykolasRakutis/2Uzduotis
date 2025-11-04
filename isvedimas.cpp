@@ -16,7 +16,7 @@ using std::setprecision;
 using std::string;
 using std::sort;
 
-void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas) {
+void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     ofstream fout("rezultatai.txt");
     if (!fout) {
         cerr << "Nepavyko sukurti failo rezultatai.txt" << endl;
@@ -50,16 +50,18 @@ void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas) {
     cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 }
 
-void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas) {
+void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas) {
     bool naudotiVidurki = (skirstymoTipas == 1);
 
     auto startRusiavimas = std::chrono::high_resolution_clock::now();
 
-    vector<Studentas> vargsiukai;
-    vector<Studentas> kietiakiai;
+    CONTAINER<Studentas> vargsiukai;
+    CONTAINER<Studentas> kietiakiai;
 
-    vargsiukai.reserve(grupe.size() / 2);
-    kietiakiai.reserve(grupe.size() / 2);
+    #ifndef USE_LIST
+        vargsiukai.reserve(grupe.size() / 2);
+        kietiakiai.reserve(grupe.size() / 2);
+    #endif
 
     for (const auto &st : grupe) {
         double galutinis;
@@ -88,8 +90,13 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
         return a_balas > b_balas;
     };
 
-    sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
-    sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
+    #ifdef USE_LIST
+        vargsiukai.sort(rikiavimasPagalBala);
+        kietiakiai.sort(rikiavimasPagalBala);
+    #else
+        sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
+        sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
+    #endif
 
     auto endRusiavimas = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diffRusiavimas = endRusiavimas - startRusiavimas;
@@ -102,7 +109,7 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
         stulpelioPav = "Galutinis(med)";
     }
 
-    auto spausdinti = [&](ofstream &f, const vector<Studentas> &grupe) {
+    auto spausdinti = [&](ofstream &f, const CONTAINER<Studentas> &grupe) {
         f << left << setw(15) << "Pavarde"
           << "|" << left << setw(20) << "Vardas"
           << "|" << left << setw(15) << stulpelioPav << endl;
@@ -153,4 +160,5 @@ void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rus
     std::chrono::duration<double> diffIsvedimas = endIsvedimas - startIsvedimas;
     isvedimolaikas = diffIsvedimas.count();
 
+    cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt" << endl;
 }

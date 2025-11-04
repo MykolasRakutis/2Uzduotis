@@ -24,6 +24,9 @@ using std::left;
 int main()
 {
     srand(time(0));
+
+    cout << "=== NAUDOJAMAS KONTEINERIS: " << CONTAINER_TYPE << " ===" << endl << endl;
+
     int kurti;
     cout << "Ar norite sugeneruoti 5 studentu failus? (1 - Taip, 0 - Ne): ";
     cin >> kurti;
@@ -37,7 +40,7 @@ int main()
         GeneruotiFaila("studentai_10000000.txt", 10000000);
     }
 
-    vector<Studentas> Grupe;
+    CONTAINER<Studentas> Grupe;
 
     cout << "\nSveiki!" << endl;
     cout << "Pasirinkite duomenu gavimo buda:\n";
@@ -105,19 +108,35 @@ int main()
     cin >> rusiavimas;
     cin.ignore(1000, '\n');
 
-    if (rusiavimas == 1) {
-        sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-            if (a.pavarde == b.pavarde)
-                return a.vardas < b.vardas;
-            return a.pavarde < b.pavarde;
-        });
-    } else if (rusiavimas == 2) {
-        sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-            if (a.vardas == b.vardas)
+    #ifdef USE_LIST
+        if (rusiavimas == 1) {
+            Grupe.sort([](const Studentas &a, const Studentas &b) {
+                if (a.pavarde == b.pavarde)
+                    return a.vardas < b.vardas;
                 return a.pavarde < b.pavarde;
-            return a.vardas < b.vardas;
-        });
-    }
+            });
+        } else if (rusiavimas == 2) {
+            Grupe.sort([](const Studentas &a, const Studentas &b) {
+                if (a.vardas == b.vardas)
+                    return a.pavarde < b.pavarde;
+                return a.vardas < b.vardas;
+            });
+        }
+    #else
+        if (rusiavimas == 1) {
+            sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+                if (a.pavarde == b.pavarde)
+                    return a.vardas < b.vardas;
+                return a.pavarde < b.pavarde;
+            });
+        } else if (rusiavimas == 2) {
+            sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
+                if (a.vardas == b.vardas)
+                    return a.pavarde < b.pavarde;
+                return a.vardas < b.vardas;
+            });
+        }
+    #endif
 
     int rezultatoTipas;
     cout << "\nPasirinkite kokius galutinius rezultatus isvesti:\n";
@@ -138,25 +157,26 @@ int main()
     cin >> skirstymoTipas;
     cin.ignore(1000, '\n');
 
-        cout << "Failo vargsiukai.txt sukurimo laikas: "
-             << fixed << setprecision(6) << vargsiukuLaikas << endl;
-        cout << "Failo kietiakiai.txt sukurimo laikas: "
-             << fixed << setprecision(6) << kietiakiuLaikas << endl;
-
-
     SkirstymasIFailus(Grupe, skirstymoTipas, rusiavimolaikas, isvedimolaikas, vargsiukuLaikas, kietiakiuLaikas);
 
     if (pasirinkimas == 2) {
         double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
-        cout << string(70, '-') << endl;
-        cout << "\nFailo " << failo_pav << " failo nuskaitymo laikas: "
+        cout << "\n" << string(70, '=') << endl;
+        cout << "KONTEINERIS: " << CONTAINER_TYPE << endl;
+        cout << string(70, '=') << endl;
+        cout << "Failo " << failo_pav << " irasu nuskaitymo laikas: "
              << fixed << setprecision(6) << skaitymolaikas << endl;
-        cout << "Failo " << failo_pav << " irasu rusiavimo i failus laikas: "
+        cout << "Failo " << failo_pav << " irasu dalijimo i dvigrupes laikas: "
              << fixed << setprecision(6) << rusiavimolaikas << endl;
+        cout << "Failo vargsiukai.txt sukurimo laikas: "
+             << fixed << setprecision(6) << vargsiukuLaikas << endl;
+        cout << "Failo kietiakiai.txt sukurimo laikas: "
+             << fixed << setprecision(6) << kietiakiuLaikas << endl;
         cout << "Failo " << failo_pav << " irasu isvedimo i failus laikas: "
              << fixed << setprecision(6) << isvedimolaikas << endl;
         cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << endl;
+        cout << string(70, '=') << endl;
     }
 
     return 0;

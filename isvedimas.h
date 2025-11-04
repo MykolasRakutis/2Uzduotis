@@ -2,11 +2,8 @@
 #define ISVEDIMAS_H
 
 #include "studentas.h"
-#include <vector>
 
-using std::vector;
-
-void IsvedimasIFaila(const vector<Studentas> &grupe, int rezultatoTipas);
-void SkirstymasIFailus(vector<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas);
+void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas);
+void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas);
 
 #endif
