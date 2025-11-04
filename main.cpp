@@ -147,6 +147,11 @@ int main()
     cin >> rezultatoTipas;
     cin.ignore(1000, '\n');
 
+    // Jei duomenys ivesti rankiniu budu, isvedame i konsole
+    if (pasirinkimas == 1) {
+        IsvedimasIKonsole(Grupe, rezultatoTipas);
+    }
+
     IsvedimasIFaila(Grupe, rezultatoTipas);
 
     int skirstymoTipas;

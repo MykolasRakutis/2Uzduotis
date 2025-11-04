@@ -16,6 +16,37 @@ using std::setprecision;
 using std::string;
 using std::sort;
 
+void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
+    cout << "\n" << string(100, '=') << endl;
+    cout << left << setw(20) << "Pavarde"
+         << "|" << left << setw(20) << "Vardas";
+
+    if (rezultatoTipas == 1 || rezultatoTipas == 3)
+        cout << "|" << left << setw(18) << "Galutinis(vid)";
+    if (rezultatoTipas == 2 || rezultatoTipas == 3)
+        cout << "|" << left << setw(18) << "Galutinis(med)";
+
+    cout << "|" << left << setw(20) << "Adresas";
+
+    cout << endl;
+    cout << string(100, '-') << endl;
+
+    for (const auto &studentas : grupe) {
+        cout << left << setw(20) << studentas.pavarde
+             << "|" << left << setw(20) << studentas.vardas;
+
+        if (rezultatoTipas == 1 || rezultatoTipas == 3)
+            cout << "|" << left << setw(18) << fixed << setprecision(2) << studentas.galutinis_vid;
+        if (rezultatoTipas == 2 || rezultatoTipas == 3)
+            cout << "|" << left << setw(18) << fixed << setprecision(2) << studentas.galutinis_med;
+
+        cout << "|" << left << setw(20) << &studentas;
+
+        cout << endl;
+    }
+    cout << string(100, '=') << endl;
+}
+
 void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     ofstream fout("rezultatai.txt");
     if (!fout) {

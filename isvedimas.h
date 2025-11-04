@@ -5,5 +5,6 @@
 
 void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas);
 void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas);
+void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas);
 
 #endif
