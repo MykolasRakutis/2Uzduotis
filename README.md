@@ -8,3 +8,5 @@ SSD: NVMe PC SN740 WD 512GB
 <img width="638" height="137" alt="Ekrano kopija 2025-11-05 222802" src="https://github.com/user-attachments/assets/57e8f12c-6447-4ad5-866b-132574cd3cc2" />
 <img width="643" height="140" alt="Ekrano kopija 2025-11-05 222847" src="https://github.com/user-attachments/assets/53fc1ab2-3da0-41f3-8a28-577ae2b10fb4" />
 <img width="644" height="136" alt="Ekrano kopija 2025-11-05 222924" src="https://github.com/user-attachments/assets/2e45a911-f9af-4172-b34b-375bee3d4f16" />
+<img width="661" height="138" alt="Ekrano kopija 2025-11-05 223010" src="https://github.com/user-attachments/assets/7b70b5d2-7311-4814-aaa5-fbcb271b88c6" />
+<img width="678" height="134" alt="Ekrano kopija 2025-11-05 223301" src="https://github.com/user-attachments/assets/6baa71d2-8b1d-4118-a675-5050a2f78b22" />
