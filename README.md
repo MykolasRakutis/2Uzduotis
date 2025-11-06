@@ -23,3 +23,10 @@ SSD: NVMe PC SN740 WD 512GB
 <img width="642" height="138" alt="Ekrano kopija 2025-11-05 223740" src="https://github.com/user-attachments/assets/16060346-de4f-4be5-aea0-57c465d83ebb" />
 <img width="654" height="133" alt="Ekrano kopija 2025-11-05 223831" src="https://github.com/user-attachments/assets/93050a8a-b00e-4d26-96e4-81cbbff80480" />
 <img width="669" height="135" alt="Ekrano kopija 2025-11-05 224235" src="https://github.com/user-attachments/assets/779acc8b-ad3d-4292-afff-8782671341ed" />
+
+|  List                                   |   1000   |   10000   |   100000   |   1000000   |   10000000   |
+| --------------------------------------- | -------- | --------- | ---------- | ----------- | ------------ |
+|   Nuskaitymas                           | 0.003203 | 0.029458  | 0.169460   | 1.398961    | 13.929197    |
+|   Rūšiavimas                            | 0.000489 | 0.006481  | 0.056484   | 0.768991    | 11.314165    |
+|   Išvedimas                             | 0.047840 | 0.035158  | 0.254810   | 2.692252    | 26.709076    |
+|   Bendras laikas                        | 0.051532 | 0.071097  | 0.480754   | 4.860204    | 51.952438    |
