@@ -30,3 +30,6 @@ SSD: NVMe PC SN740 WD 512GB
 |   Rūšiavimas                            | 0.000489 | 0.006481  | 0.056484   | 0.768991    | 11.314165    |
 |   Išvedimas                             | 0.047840 | 0.035158  | 0.254810   | 2.692252    | 26.709076    |
 |   Bendras laikas                        | 0.051532 | 0.071097  | 0.480754   | 4.860204    | 51.952438    |
+
+
+Lyginant vector ir list laikus, jie labai nesiskiria, tai gali būti dėl sistemos parametrų. Visais atvejais nuskaitymas ir išvedimas yra greitesnis su vector, tačiau rūšiavimas veikia greičiau su list. Tik vienu atveju bendras laikas buvo mažesnis naudojant list.
