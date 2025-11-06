@@ -17,3 +17,7 @@ SSD: NVMe PC SN740 WD 512GB
 |   Rūšiavimas                            | 0.000829 | 0.008550  | 0.077499   |   0.946318   |   11.879974   |
 |   Išvedimas                             | 0.005151 | 0.030857  | 0.253210   |   2.561421   |   25.761312   |
 |   Bendras laikas                        | 0.008669 | 0.061743  | 0.477564   |   4.868126   |   51.373977   |
+
+<img width="624" height="141" alt="Ekrano kopija 2025-11-05 223451" src="https://github.com/user-attachments/assets/c3aafa5c-7d4b-44c7-86ad-e614a834bf19" />
+<img width="637" height="140" alt="Ekrano kopija 2025-11-05 223710" src="https://github.com/user-attachments/assets/89c34413-4102-4ff4-92f8-757722d77e26" />
+<img width="642" height="138" alt="Ekrano kopija 2025-11-05 223740" src="https://github.com/user-attachments/assets/16060346-de4f-4be5-aea0-57c465d83ebb" />
