@@ -16,37 +16,6 @@ using std::setprecision;
 using std::string;
 using std::sort;
 
-void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
-    cout << "\n" << string(100, '=') << endl;
-    cout << left << setw(20) << "Pavarde"
-         << "|" << left << setw(20) << "Vardas";
-
-    if (rezultatoTipas == 1 || rezultatoTipas == 3)
-        cout << "|" << left << setw(18) << "Galutinis(vid)";
-    if (rezultatoTipas == 2 || rezultatoTipas == 3)
-        cout << "|" << left << setw(18) << "Galutinis(med)";
-
-    cout << "|" << left << setw(20) << "Adresas";
-
-    cout << endl;
-    cout << string(100, '-') << endl;
-
-    for (const auto &studentas : grupe) {
-        cout << left << setw(20) << studentas.pavarde
-             << "|" << left << setw(20) << studentas.vardas;
-
-        if (rezultatoTipas == 1 || rezultatoTipas == 3)
-            cout << "|" << left << setw(18) << fixed << setprecision(2) << studentas.galutinis_vid;
-        if (rezultatoTipas == 2 || rezultatoTipas == 3)
-            cout << "|" << left << setw(18) << fixed << setprecision(2) << studentas.galutinis_med;
-
-        cout << "|" << left << setw(20) << &studentas;
-
-        cout << endl;
-    }
-    cout << string(100, '=') << endl;
-}
-
 void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     ofstream fout("rezultatai.txt");
     if (!fout) {
@@ -81,26 +50,41 @@ void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 }
 
-void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &rusiavimolaikas, double &isvedimolaikas, double &vargsiukuLaikas, double &kietiakiuLaikas) {
-    bool naudotiVidurki = (skirstymoTipas == 1);
+void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
+    cout << "\n" << left << setw(15) << "Pavarde"
+         << left << setw(20) << "Vardas";
 
-    auto startRusiavimas = std::chrono::high_resolution_clock::now();
+    if (rezultatoTipas == 1 || rezultatoTipas == 3)
+        cout << left << setw(20) << "Galutinis(vid)";
+    if (rezultatoTipas == 2 || rezultatoTipas == 3)
+        cout << left << setw(20) << "Galutinis(med)";
 
-    CONTAINER<Studentas> vargsiukai;
-    CONTAINER<Studentas> kietiakiai;
+    cout << endl;
+    cout << string(70, '-') << endl;
 
+    for (const auto &studentas : grupe) {
+        cout << left << setw(15) << studentas.pavarde
+             << left << setw(20) << studentas.vardas;
+
+        if (rezultatoTipas == 1 || rezultatoTipas == 3)
+            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_vid;
+        if (rezultatoTipas == 2 || rezultatoTipas == 3)
+            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_med;
+
+        cout << endl;
+    }
+    cout << "...\n" << endl;
+}
+
+void Strategija1(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
+                 CONTAINER<Studentas> &vargsiukai, CONTAINER<Studentas> &kietiakiai) {
     #ifndef USE_LIST
         vargsiukai.reserve(grupe.size() / 2);
         kietiakiai.reserve(grupe.size() / 2);
     #endif
 
     for (const auto &st : grupe) {
-        double galutinis;
-        if (naudotiVidurki) {
-            galutinis = st.galutinis_vid;
-        } else {
-            galutinis = st.galutinis_med;
-        }
+        double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
 
         if (galutinis < 5.0) {
             vargsiukai.push_back(st);
@@ -108,16 +92,80 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &
             kietiakiai.push_back(st);
         }
     }
+}
+
+void Strategija2(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
+                 CONTAINER<Studentas> &vargsiukai) {
+    #ifndef USE_LIST
+        vargsiukai.reserve(grupe.size() / 2);
+    #endif
+
+    #ifdef USE_LIST
+        auto it = grupe.begin();
+        while (it != grupe.end()) {
+            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
+            if (galutinis < 5.0) {
+                vargsiukai.push_back(*it);
+                it = grupe.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    #else
+        auto it = grupe.begin();
+        while (it != grupe.end()) {
+            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
+            if (galutinis < 5.0) {
+                vargsiukai.push_back(*it);
+                it = grupe.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    #endif
+}
+
+void Strategija3(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
+                 CONTAINER<Studentas> &vargsiukai) {
+    #ifdef USE_LIST
+
+    #else
+
+        auto partition_point = std::stable_partition(grupe.begin(), grupe.end(),
+            [naudotiVidurki](const Studentas &st) {
+                double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
+                return galutinis >= 5.0;
+            });
+
+        vargsiukai.assign(partition_point, grupe.end());
+
+        grupe.erase(partition_point, grupe.end());
+    #endif
+}
+
+void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int strategija,
+                       double &rusiavimolaikas, double &isvedimolaikas,
+                       double &vargsiukuLaikas, double &kietiakiuLaikas) {
+    bool naudotiVidurki = (skirstymoTipas == 1);
+
+    auto startRusiavimas = std::chrono::high_resolution_clock::now();
+
+    CONTAINER<Studentas> vargsiukai;
+    CONTAINER<Studentas> kietiakiai;
+
+    if (strategija == 1) {
+        Strategija1(grupe, naudotiVidurki, vargsiukai, kietiakiai);
+    } else if (strategija == 2) {
+        Strategija2(grupe, naudotiVidurki, vargsiukai);
+        kietiakiai = grupe;
+    } else if (strategija == 3) {
+        Strategija3(grupe, naudotiVidurki, vargsiukai);
+        kietiakiai = grupe;
+    }
 
     auto rikiavimasPagalBala = [naudotiVidurki](const Studentas &a, const Studentas &b) {
-        double a_balas, b_balas;
-        if (naudotiVidurki) {
-            a_balas = a.galutinis_vid;
-            b_balas = b.galutinis_vid;
-        } else {
-            a_balas = a.galutinis_med;
-            b_balas = b.galutinis_med;
-        }
+        double a_balas = naudotiVidurki ? a.galutinis_vid : a.galutinis_med;
+        double b_balas = naudotiVidurki ? b.galutinis_vid : b.galutinis_med;
         return a_balas > b_balas;
     };
 
@@ -133,12 +181,7 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &
     std::chrono::duration<double> diffRusiavimas = endRusiavimas - startRusiavimas;
     rusiavimolaikas = diffRusiavimas.count();
 
-    string stulpelioPav;
-    if (naudotiVidurki) {
-        stulpelioPav = "Galutinis(vid)";
-    } else {
-        stulpelioPav = "Galutinis(med)";
-    }
+    string stulpelioPav = naudotiVidurki ? "Galutinis(vid)" : "Galutinis(med)";
 
     auto spausdinti = [&](ofstream &f, const CONTAINER<Studentas> &grupe) {
         f << left << setw(15) << "Pavarde"
@@ -147,12 +190,7 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &
         f << string(55, '-') << endl;
 
         for (const auto &st : grupe) {
-            double balas;
-            if (naudotiVidurki) {
-                balas = st.galutinis_vid;
-            } else {
-                balas = st.galutinis_med;
-            }
+            double balas = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
 
             f << left << setw(15) << st.pavarde
               << "|" << left << setw(20) << st.vardas
@@ -192,4 +230,5 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, double &
     isvedimolaikas = diffIsvedimas.count();
 
     cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt" << endl;
+    cout << "Naudota strategija: " << strategija << endl;
 }

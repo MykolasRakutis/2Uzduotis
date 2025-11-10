@@ -147,7 +147,7 @@ int main()
     cin >> rezultatoTipas;
     cin.ignore(1000, '\n');
 
-    // Jei duomenys ivesti rankiniu budu, isvedame i konsole
+    // Jei ávesta rankiniu bûdu, rodyti konsolëje
     if (pasirinkimas == 1) {
         IsvedimasIKonsole(Grupe, rezultatoTipas);
     }
@@ -162,23 +162,35 @@ int main()
     cin >> skirstymoTipas;
     cin.ignore(1000, '\n');
 
-    SkirstymasIFailus(Grupe, skirstymoTipas, rusiavimolaikas, isvedimolaikas, vargsiukuLaikas, kietiakiuLaikas);
+    int strategija;
+    cout << "\nPasirinkite dalijimo strategija:\n";
+    cout << "1. Strategija 1 (Du nauji konteineriai - neefektyvu atminties)\n";
+    cout << "2. Strategija 2 (Vienas naujas + trynimas is originalo)\n";
+    cout << "3. Strategija 3 (Optimizuota su std::partition)\n";
+    cout << "Jusu pasirinkimas: ";
+    cin >> strategija;
+    cin.ignore(1000, '\n');
+
+    SkirstymasIFailus(Grupe, skirstymoTipas, strategija, rusiavimolaikas,
+                      isvedimolaikas, vargsiukuLaikas, kietiakiuLaikas);
 
     if (pasirinkimas == 2) {
         double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
+        cout << "\n=== REZULTATAI ===" << endl;
         cout << "Konteineris: " << CONTAINER_TYPE << endl;
+        cout << "Strategija: " << strategija << endl;
         cout << "Failo " << failo_pav << " irasu nuskaitymo laikas: "
-             << fixed << setprecision(6) << skaitymolaikas << endl;
+             << fixed << setprecision(6) << skaitymolaikas << " s" << endl;
         cout << "Failo " << failo_pav << " irasu dalijimo i dvigrupes laikas: "
-             << fixed << setprecision(6) << rusiavimolaikas << endl;
+             << fixed << setprecision(6) << rusiavimolaikas << " s" << endl;
         cout << "Failo vargsiukai.txt sukurimo laikas: "
-             << fixed << setprecision(6) << vargsiukuLaikas << endl;
+             << fixed << setprecision(6) << vargsiukuLaikas << " s" << endl;
         cout << "Failo kietiakiai.txt sukurimo laikas: "
-             << fixed << setprecision(6) << kietiakiuLaikas << endl;
+             << fixed << setprecision(6) << kietiakiuLaikas << " s" << endl;
         cout << "Failo " << failo_pav << " irasu isvedimo i failus laikas: "
-             << fixed << setprecision(6) << isvedimolaikas << endl;
-        cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << endl;
+             << fixed << setprecision(6) << isvedimolaikas << " s" << endl;
+        cout << "Bendras laikas: " << fixed << setprecision(6) << bendrasLaikas << " s" << endl;
     }
 
     return 0;

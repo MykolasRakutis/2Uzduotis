@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Mokiniu pazymiai2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Mokiniu pazymiai2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Mokiniu pazymiai2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="failai.cpp" />
+		<Unit filename="failai.h" />
+		<Unit filename="isvedimas.cpp" />
+		<Unit filename="isvedimas.h" />
+		<Unit filename="ivedimas.cpp" />
+		<Unit filename="ivedimas.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="skaiciavimai.cpp" />
+		<Unit filename="skaiciavimai.h" />
+		<Unit filename="studentai10000.txt" />
+		<Unit filename="studentai100000.txt" />
+		<Unit filename="studentai1000000.txt" />
+		<Unit filename="studentas.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
