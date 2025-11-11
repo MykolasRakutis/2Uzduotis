@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <chrono>
+#include <iterator>
 
 using std::ofstream;
 using std::cout;
@@ -125,17 +126,19 @@ void Strategija3(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
             }
         }
     #else
-        auto partition_point = std::stable_partition(grupe.begin(), grupe.end(),
-            [naudotiVidurki](const Studentas &st) {
-                double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
-                return galutinis >= 5.0;
-            });
 
-        vargsiukai.assign(partition_point, grupe.end());
+        auto arKietiakas = [naudotiVidurki](const Studentas &st) {
+            double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
+            return galutinis >= 5.0;
+        };
+        auto partition_point = std::partition(grupe.begin(), grupe.end(), arKietiakas);
+
+        vargsiukai.assign(std::make_move_iterator(partition_point),
+                          std::make_move_iterator(grupe.end()));
+
         grupe.erase(partition_point, grupe.end());
     #endif
 }
-
 void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int strategija,
                        double &rusiavimolaikas, double &isvedimolaikas,
                        double &vargsiukuLaikas, double &kietiakiuLaikas) {
@@ -223,5 +226,4 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int stra
     isvedimolaikas = diffIsvedimas.count();
 
     cout << "\nSukurti failai: vargsiukai.txt ir kietiakiai.txt" << endl;
-    cout << "Naudota strategija: " << strategija << endl;
 }
