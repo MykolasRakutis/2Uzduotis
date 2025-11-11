@@ -59,7 +59,24 @@ buvo atliktas programos veikimo spartos priklausomai nuo naudojamo konteinerio (
 Testavimas atliekamas su 1000, 10000, 100000, 1000000, 10000000 įrašų.
 
 
+TESTAVIMAS SU STRATEGIJOMIS:
 
+Šioje versijoje buvo atliktas studentų rūšiavimo (skirstymo) efektyvumo testavimas, taikant tris skirtingas strategijas ir du skirtingus konteinerių tipus — std::vector ir std::list.
+Tikslas — nustatyti, kaip pasirinktas konteineris bei strategija įtakoja programos vykdymo spartą.
+
+Rezultatai parodė, kad:
+
+Naudojant 1 strategiją:
+
+Su vector veikia greitai su mažais duomenų kiekiais, bet sulėtėja kai yra daugiau duomenų, o su list veikia šiektiek lėčiau.
+
+Naudojant 2 strategiją:
+
+Su list veikia žymiai greičiau nei su vector.
+
+Naudojant 3 strategiją:
+
+Su vector greitis panašus į 1 strategiją, o su list ši strategija veikia greičiausiai.
 
 
 
