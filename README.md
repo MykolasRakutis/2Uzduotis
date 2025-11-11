@@ -1,34 +1,43 @@
 # Pirmas-projektas
-v0.1 release
+PROGRAMOS NAUDOJIMO INSTRUKCIJA
+
+1.Programa paleidžiama įprastai terminale ar IDE aplinkoje
+
+2.Paleidus programą, ekrane pasirodys žingsnių seka (interaktyvūs klausimai)
+
+3.Pasirinkimas ar generuoti 5 studentų failus
+
+4.Duomenų įvedimo būdo pasirinkimas
+
+5.Studentų rikiavimo pasirinkimas
+
+6.Galutinio rezultato pasirinkimas
+
+7.Studentų skirstymo į grupes būdo pasirinkimas
+
+8.Strategijos pasirinkimas
+
+9.Sistema išveda laiko matavimus
+
+10.Sukuriami failai.
+
+
+
+
+
+KIEKVIENO RELEASE APRAŠYMAS
+
+V0.1 RELEASE
+
 leidžia įvesti studentų duomenis rankiniu būdu arba nuskaityti juos iš failo kursiokai.txt;
 
 Automatiškai apskaičiuoti galutinį balą pagal vidurkį ir medianą;
 
 Išvesti tvarkingą lentelę su studentų pavardėmis, vardais ir abiem galutinio balo versijomis.
 
-Naudojimo principas
+V0.2 RELEASE
 
-Paleidus programą, vartotojas pasirenka duomenų gavimo būdą:
-
-1 – duomenų įvedimas / generavimas rankiniu būdu;
-
-2 – duomenų skaitymas iš failo kursiokai.txt.
-
-Įvedami studentų duomenys arba jie nuskaitomi iš failo.
-
-Programa apskaičiuoja:
-
-galutinį balą pagal vidurkį: galutinis_vid = vid * 0.4 + egz * 0.6;
-
-galutinį balą pagal medianą: galutinis_med = med * 0.4 + egz * 0.6;
-
-Rezultatai išvedami į konsolę lentelės pavidalu.
-
-
-
-v0.2 release versija papildyta galimybe:
-
-automatiškai generuoti didelius studentų duomenų failus (nuo 1000 iki 10 000 000 įrašų);
+papildyta galimybe automatiškai generuoti didelius studentų duomenų failus (nuo 1000 iki 10 000 000 įrašų);
 
 nuskaityti duomenis iš failų ir saugoti juos vector<Studentas>;
 
@@ -44,7 +53,9 @@ vargsiukai.txt ir kietiakiai.txt;
 pamatuoti ir parodyti programos veikimo laiką (nuskaitymo, rūšiavimo ir išvedimo).
 
 
-v0.3 release buvo atliktas programos veikimo spartos priklausomai nuo naudojamo konteinerio (List ir Vector)
+V0.3 RELEASE
+
+buvo atliktas programos veikimo spartos priklausomai nuo naudojamo konteinerio (List ir Vector)
 Testavimas atliekamas su 1000, 10000, 100000, 1000000, 10000000 įrašų.
 
 
