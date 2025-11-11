@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 using std::list;
 
-#define USE_LIST
+#define USE_VECTOR
 
 #ifdef USE_LIST
     #define CONTAINER list

@@ -100,37 +100,31 @@ void Strategija2(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
         vargsiukai.reserve(grupe.size() / 2);
     #endif
 
-    #ifdef USE_LIST
-        auto it = grupe.begin();
-        while (it != grupe.end()) {
-            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
-            if (galutinis < 5.0) {
-                vargsiukai.push_back(*it);
-                it = grupe.erase(it);
-            } else {
-                ++it;
-            }
+    auto it = grupe.begin();
+    while (it != grupe.end()) {
+        double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
+        if (galutinis < 5.0) {
+            vargsiukai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
         }
-    #else
-        auto it = grupe.begin();
-        while (it != grupe.end()) {
-            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
-            if (galutinis < 5.0) {
-                vargsiukai.push_back(*it);
-                it = grupe.erase(it);
-            } else {
-                ++it;
-            }
-        }
-    #endif
+    }
 }
 
 void Strategija3(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
                  CONTAINER<Studentas> &vargsiukai) {
     #ifdef USE_LIST
-
+        auto it = grupe.begin();
+        while (it != grupe.end()) {
+            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
+            if (galutinis < 5.0) {
+                vargsiukai.splice(vargsiukai.end(), grupe, it++);
+            } else {
+                ++it;
+            }
+        }
     #else
-
         auto partition_point = std::stable_partition(grupe.begin(), grupe.end(),
             [naudotiVidurki](const Studentas &st) {
                 double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
@@ -138,7 +132,6 @@ void Strategija3(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
             });
 
         vargsiukai.assign(partition_point, grupe.end());
-
         grupe.erase(partition_point, grupe.end());
     #endif
 }

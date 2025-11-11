@@ -147,7 +147,6 @@ int main()
     cin >> rezultatoTipas;
     cin.ignore(1000, '\n');
 
-    // Jei ávesta rankiniu bûdu, rodyti konsolëje
     if (pasirinkimas == 1) {
         IsvedimasIKonsole(Grupe, rezultatoTipas);
     }
@@ -164,9 +163,9 @@ int main()
 
     int strategija;
     cout << "\nPasirinkite dalijimo strategija:\n";
-    cout << "1. Strategija 1 (Du nauji konteineriai - neefektyvu atminties)\n";
-    cout << "2. Strategija 2 (Vienas naujas + trynimas is originalo)\n";
-    cout << "3. Strategija 3 (Optimizuota su std::partition)\n";
+    cout << "1. Strategija 1 (Du nauji konteineriai)\n";
+    cout << "2. Strategija 2 (Vienas naujas)\n";
+    cout << "3. Strategija 3 (Optimizuota)\n";
     cout << "Jusu pasirinkimas: ";
     cin >> strategija;
     cin.ignore(1000, '\n');
@@ -177,7 +176,6 @@ int main()
     if (pasirinkimas == 2) {
         double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
-        cout << "\n=== REZULTATAI ===" << endl;
         cout << "Konteineris: " << CONTAINER_TYPE << endl;
         cout << "Strategija: " << strategija << endl;
         cout << "Failo " << failo_pav << " irasu nuskaitymo laikas: "
