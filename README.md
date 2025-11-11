@@ -11,3 +11,8 @@
 | Rūšiavimas                 | 0.001066 | 0.010960 | 0.093369 | 0.933095 | 11.739986 |
 | Išvedimas                  | 0.014543 | 0.034865 | 0.244626 | 2.553664 | 25.521644 |
 | Bendras laikas             | 0.018448 | 0.073161 | 0.486754 | 4.828055 | 51.279218 |
+
+
+<img width="673" height="156" alt="Ekrano kopija 2025-11-11 160900" src="https://github.com/user-attachments/assets/3b9e10b5-43b2-49e7-a936-1c596da566ed" />
+<img width="661" height="161" alt="Ekrano kopija 2025-11-11 160656" src="https://github.com/user-attachments/assets/d459cc54-da88-41e6-83d0-be93db43fc15" />
+<img width="648" height="152" alt="Ekrano kopija 2025-11-11 160525" src="https://github.com/user-attachments/assets/ec0c37fb-c16b-4126-ab45-18c8c9c61366" />
