@@ -1,4 +1,58 @@
 # Pirmas-projektas
+v0.1 release
+leidžia įvesti studentų duomenis rankiniu būdu arba nuskaityti juos iš failo kursiokai.txt;
+
+Automatiškai apskaičiuoti galutinį balą pagal vidurkį ir medianą;
+
+Išvesti tvarkingą lentelę su studentų pavardėmis, vardais ir abiem galutinio balo versijomis.
+
+Naudojimo principas
+
+Paleidus programą, vartotojas pasirenka duomenų gavimo būdą:
+
+1 – duomenų įvedimas / generavimas rankiniu būdu;
+
+2 – duomenų skaitymas iš failo kursiokai.txt.
+
+Įvedami studentų duomenys arba jie nuskaitomi iš failo.
+
+Programa apskaičiuoja:
+
+galutinį balą pagal vidurkį: galutinis_vid = vid * 0.4 + egz * 0.6;
+
+galutinį balą pagal medianą: galutinis_med = med * 0.4 + egz * 0.6;
+
+Rezultatai išvedami į konsolę lentelės pavidalu.
+
+
+
+v0.2 release versija papildyta galimybe:
+
+automatiškai generuoti didelius studentų duomenų failus (nuo 1000 iki 10 000 000 įrašų);
+
+nuskaityti duomenis iš failų ir saugoti juos vector<Studentas>;
+
+paskirstyti studentus į dvi kategorijas:
+
+„vargšiukai“ – galutinis balas < 5.0
+
+„kietiakiai“ – galutinis balas ≥ 5.0;
+
+kiekvienai grupei sugeneruoti atskirus failus:
+vargsiukai.txt ir kietiakiai.txt;
+
+pamatuoti ir parodyti programos veikimo laiką (nuskaitymo, rūšiavimo ir išvedimo).
+
+
+v0.3 release buvo atliktas programos veikimo spartos priklausomai nuo naudojamo konteinerio (List ir Vector)
+Testavimas atliekamas su 1000, 10000, 100000, 1000000, 10000000 įrašų.
+
+
+
+
+
+
+
 <img width="645" height="156" alt="Ekrano kopija 2025-11-11 155917" src="https://github.com/user-attachments/assets/e2bcd7ff-034a-4180-93be-6c3007a38118" />
 <img width="671" height="163" alt="Ekrano kopija 2025-11-11 160004" src="https://github.com/user-attachments/assets/4a85b8fe-d59a-4079-b6b2-893bcdf7aa40" />
 <img width="668" height="155" alt="Ekrano kopija 2025-11-11 160045" src="https://github.com/user-attachments/assets/5d325cfa-3e97-41dc-acc6-e832fb2e7c63" />
