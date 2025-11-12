@@ -2,11 +2,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <sstream>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::getline;
+using std::stringstream;
 
 bool tikRaides(const string &s) {
     for (char c : s) {
@@ -75,20 +78,28 @@ Studentas Stud_ivestis(int nr)
     }
     else
     {
-        cout << "Iveskite namu darbu pazymius (baigti -1):" << endl;
+        cout << "Iveskite namu darbu pazymius (baigti tuscia eilute):" << endl;
         vector<int> pazymiai;
-        int paz;
-        while (cin >> paz && paz != -1) {
-            if (paz < 0 || paz > 10) {
-                cout << "Pazymys turi buti tarp 0 ir 10\n";
+        string eilute;
+        while (getline(cin, eilute)) {
+            if (eilute.empty()) break;
+
+            std::stringstream ss(eilute);
+            int paz;
+            if (ss >> paz) {
+                if (paz < 0 || paz > 10) {
+                    cout << "Pazymys turi buti tarp 0 ir 10. Bandykite dar karta: ";
+                } else {
+                    pazymiai.push_back(paz);
+                }
             } else {
-                pazymiai.push_back(paz);
+                cout << "Iveskite skaiciu. Bandykite dar karta: ";
             }
         }
         st.setNdpaz(pazymiai);
-        cin.ignore(1000, '\n');
 
         cout << "Iveskite egzamino rezultata: ";
+        int paz;
         cin >> paz;
         st.setEgzrez(paz);
         cin.ignore(1000, '\n');
