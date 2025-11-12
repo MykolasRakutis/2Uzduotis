@@ -1,4 +1,5 @@
 #include "isvedimas.h"
+#include "skaiciavimai.h"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -17,7 +18,7 @@ using std::setprecision;
 using std::string;
 using std::sort;
 
-void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
+void IsvedimasIFaila(const std::vector<Studentas> &grupe, int rezultatoTipas) {
     ofstream fout("rezultatai.txt");
     if (!fout) {
         cerr << "Nepavyko sukurti failo rezultatai.txt" << endl;
@@ -36,13 +37,13 @@ void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     fout << string(70, '-') << endl;
 
     for (const auto &studentas : grupe) {
-        fout << left << setw(15) << studentas.pavarde
-             << "|" << left << setw(20) << studentas.vardas;
+        fout << left << setw(15) << studentas.pavarde()
+             << "|" << left << setw(20) << studentas.vardas();
 
         if (rezultatoTipas == 1 || rezultatoTipas == 3)
-            fout << "|" << left << setw(15) << fixed << setprecision(2) << studentas.galutinis_vid;
+            fout << "|" << left << setw(15) << fixed << setprecision(2) << studentas.galutinis_vid();
         if (rezultatoTipas == 2 || rezultatoTipas == 3)
-            fout << "|" << left << setw(15) << fixed << setprecision(2) << studentas.galutinis_med;
+            fout << "|" << left << setw(15) << fixed << setprecision(2) << studentas.galutinis_med();
 
         fout << endl;
     }
@@ -51,7 +52,7 @@ void IsvedimasIFaila(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     cout << "\nRezultatai sekmingai irasyti i faila rezultatai.txt" << endl;
 }
 
-void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
+void IsvedimasIKonsole(const std::vector<Studentas> &grupe, int rezultatoTipas) {
     cout << "\n" << left << setw(15) << "Pavarde"
          << left << setw(20) << "Vardas";
 
@@ -64,28 +65,23 @@ void IsvedimasIKonsole(const CONTAINER<Studentas> &grupe, int rezultatoTipas) {
     cout << string(70, '-') << endl;
 
     for (const auto &studentas : grupe) {
-        cout << left << setw(15) << studentas.pavarde
-             << left << setw(20) << studentas.vardas;
+        cout << left << setw(15) << studentas.pavarde()
+             << left << setw(20) << studentas.vardas();
 
         if (rezultatoTipas == 1 || rezultatoTipas == 3)
-            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_vid;
+            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_vid();
         if (rezultatoTipas == 2 || rezultatoTipas == 3)
-            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_med;
+            cout << left << setw(20) << fixed << setprecision(2) << studentas.galutinis_med();
 
         cout << endl;
     }
     cout << "...\n" << endl;
 }
 
-void Strategija1(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
-                 CONTAINER<Studentas> &vargsiukai, CONTAINER<Studentas> &kietiakiai) {
-    #ifndef USE_LIST
-        vargsiukai.reserve(grupe.size() / 2);
-        kietiakiai.reserve(grupe.size() / 2);
-    #endif
-
+void Strategija1(std::vector<Studentas> &grupe, bool naudotiVidurki,
+                 std::vector<Studentas> &vargsiukai, std::vector<Studentas> &kietiakiai) {
     for (const auto &st : grupe) {
-        double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
+        double galutinis = naudotiVidurki ? st.galutinis_vid() : st.galutinis_med();
 
         if (galutinis < 5.0) {
             vargsiukai.push_back(st);
@@ -95,15 +91,11 @@ void Strategija1(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
     }
 }
 
-void Strategija2(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
-                 CONTAINER<Studentas> &vargsiukai) {
-    #ifndef USE_LIST
-        vargsiukai.reserve(grupe.size() / 2);
-    #endif
-
+void Strategija2(std::vector<Studentas> &grupe, bool naudotiVidurki,
+                 std::vector<Studentas> &vargsiukai) {
     auto it = grupe.begin();
     while (it != grupe.end()) {
-        double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
+        double galutinis = naudotiVidurki ? it->galutinis_vid() : it->galutinis_med();
         if (galutinis < 5.0) {
             vargsiukai.push_back(*it);
             it = grupe.erase(it);
@@ -113,41 +105,29 @@ void Strategija2(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
     }
 }
 
-void Strategija3(CONTAINER<Studentas> &grupe, bool naudotiVidurki,
-                 CONTAINER<Studentas> &vargsiukai) {
-    #ifdef USE_LIST
-        auto it = grupe.begin();
-        while (it != grupe.end()) {
-            double galutinis = naudotiVidurki ? it->galutinis_vid : it->galutinis_med;
-            if (galutinis < 5.0) {
-                vargsiukai.splice(vargsiukai.end(), grupe, it++);
-            } else {
-                ++it;
-            }
-        }
-    #else
+void Strategija3(std::vector<Studentas> &grupe, bool naudotiVidurki,
+                 std::vector<Studentas> &vargsiukai) {
+    auto arKietiakas = [naudotiVidurki](const Studentas &st) {
+        double galutinis = naudotiVidurki ? st.galutinis_vid() : st.galutinis_med();
+        return galutinis >= 5.0;
+    };
+    auto partition_point = std::partition(grupe.begin(), grupe.end(), arKietiakas);
 
-        auto arKietiakas = [naudotiVidurki](const Studentas &st) {
-            double galutinis = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
-            return galutinis >= 5.0;
-        };
-        auto partition_point = std::partition(grupe.begin(), grupe.end(), arKietiakas);
+    vargsiukai.assign(std::make_move_iterator(partition_point),
+                      std::make_move_iterator(grupe.end()));
 
-        vargsiukai.assign(std::make_move_iterator(partition_point),
-                          std::make_move_iterator(grupe.end()));
-
-        grupe.erase(partition_point, grupe.end());
-    #endif
+    grupe.erase(partition_point, grupe.end());
 }
-void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int strategija,
+
+void SkirstymasIFailus(std::vector<Studentas> &grupe, int skirstymoTipas, int strategija,
                        double &rusiavimolaikas, double &isvedimolaikas,
                        double &vargsiukuLaikas, double &kietiakiuLaikas) {
     bool naudotiVidurki = (skirstymoTipas == 1);
 
     auto startRusiavimas = std::chrono::high_resolution_clock::now();
 
-    CONTAINER<Studentas> vargsiukai;
-    CONTAINER<Studentas> kietiakiai;
+    std::vector<Studentas> vargsiukai;
+    std::vector<Studentas> kietiakiai;
 
     if (strategija == 1) {
         Strategija1(grupe, naudotiVidurki, vargsiukai, kietiakiai);
@@ -160,18 +140,13 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int stra
     }
 
     auto rikiavimasPagalBala = [naudotiVidurki](const Studentas &a, const Studentas &b) {
-        double a_balas = naudotiVidurki ? a.galutinis_vid : a.galutinis_med;
-        double b_balas = naudotiVidurki ? b.galutinis_vid : b.galutinis_med;
+        double a_balas = naudotiVidurki ? a.galutinis_vid() : a.galutinis_med();
+        double b_balas = naudotiVidurki ? b.galutinis_vid() : b.galutinis_med();
         return a_balas > b_balas;
     };
 
-    #ifdef USE_LIST
-        vargsiukai.sort(rikiavimasPagalBala);
-        kietiakiai.sort(rikiavimasPagalBala);
-    #else
-        sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
-        sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
-    #endif
+    sort(vargsiukai.begin(), vargsiukai.end(), rikiavimasPagalBala);
+    sort(kietiakiai.begin(), kietiakiai.end(), rikiavimasPagalBala);
 
     auto endRusiavimas = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diffRusiavimas = endRusiavimas - startRusiavimas;
@@ -179,17 +154,17 @@ void SkirstymasIFailus(CONTAINER<Studentas> &grupe, int skirstymoTipas, int stra
 
     string stulpelioPav = naudotiVidurki ? "Galutinis(vid)" : "Galutinis(med)";
 
-    auto spausdinti = [&](ofstream &f, const CONTAINER<Studentas> &grupe) {
+    auto spausdinti = [&](ofstream &f, const std::vector<Studentas> &grupe) {
         f << left << setw(15) << "Pavarde"
           << "|" << left << setw(20) << "Vardas"
           << "|" << left << setw(15) << stulpelioPav << endl;
         f << string(55, '-') << endl;
 
         for (const auto &st : grupe) {
-            double balas = naudotiVidurki ? st.galutinis_vid : st.galutinis_med;
+            double balas = naudotiVidurki ? st.galutinis_vid() : st.galutinis_med();
 
-            f << left << setw(15) << st.pavarde
-              << "|" << left << setw(20) << st.vardas
+            f << left << setw(15) << st.pavarde()
+              << "|" << left << setw(20) << st.vardas()
               << "|" << left << setw(15) << fixed << setprecision(2) << balas
               << endl;
         }

@@ -1,11 +1,12 @@
 #ifndef IVEDIMAS_H
 #define IVEDIMAS_H
 
-#include "studentas.h"
+#include "Studentas.h"
 #include <string>
 
-bool tikRaides(const string &s);
+using std::string;
 
+bool tikRaides(const string &s);
 Studentas Stud_ivestis(int nr);
 
 #endif

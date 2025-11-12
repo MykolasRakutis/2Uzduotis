@@ -13,29 +13,28 @@ using std::endl;
 
 Studentas Failas(string eilute)
 {
-    Studentas s;
     stringstream ss(eilute);
-    ss >> s.pavarde >> s.vardas;
+    string pavarde, vardas;
+    ss >> pavarde >> vardas;
+
+    Studentas s;
+    s.pavarde_ = pavarde;
+    s.vardas_ = vardas;
 
     int paz;
     vector<int> laikpaz;
-    while (ss >> paz) laikpaz.push_back(paz);
+    while (ss >> paz) {
+        laikpaz.push_back(paz);
+    }
 
     if (!laikpaz.empty()) {
-        s.egzrez = laikpaz.back();
+        int egzrez = laikpaz.back();
         laikpaz.pop_back();
-        s.ndpaz = laikpaz;
-        int sum = 0;
-        for (int x : s.ndpaz) sum += x;
-        int n = s.ndpaz.size();
-        double vid;
-        if (n > 0) vid = double(sum) / n;
-        else vid = 0;
-
-        s.galutinis_vid = vid * 0.4 + s.egzrez * 0.6;
-        double med = MedSkaiciavimas(s.ndpaz);
-        s.galutinis_med = med * 0.4 + s.egzrez * 0.6;
+        s.ndpaz_ = laikpaz;
+        s.egzrez_ = egzrez;
+        s.skaiciuotiGalutinius();
     }
+
     return s;
 }
 

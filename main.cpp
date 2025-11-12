@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
-#include "studentas.h"
+#include "Studentas.h"
 #include "ivedimas.h"
 #include "failai.h"
 #include "isvedimas.h"
@@ -25,8 +25,6 @@ int main()
 {
     srand(time(0));
 
-    cout << "Naudojamas konteineris: " << CONTAINER_TYPE << endl << endl;
-
     int kurti;
     cout << "Ar norite sugeneruoti 5 studentu failus? (1 - Taip, 0 - Ne): ";
     cin >> kurti;
@@ -40,7 +38,7 @@ int main()
         GeneruotiFaila("studentai_10000000.txt", 10000000);
     }
 
-    CONTAINER<Studentas> Grupe;
+    std::vector<Studentas> Grupe;
 
     cout << "\nSveiki!" << endl;
     cout << "Pasirinkite duomenu gavimo buda:\n";
@@ -56,7 +54,7 @@ int main()
     double isvedimolaikas = 0;
     double kietiakiuLaikas = 0;
     double vargsiukuLaikas = 0;
-    string failo_pav;
+    std::string failo_pav;
 
     if (pasirinkimas == 1) {
         int m;
@@ -86,7 +84,7 @@ int main()
 
         auto startSkaitymas = std::chrono::high_resolution_clock::now();
 
-        string eilute;
+        std::string eilute;
         getline(fin, eilute);
         while (getline(fin, eilute)) {
             if (!eilute.empty()) {
@@ -108,35 +106,11 @@ int main()
     cin >> rusiavimas;
     cin.ignore(1000, '\n');
 
-    #ifdef USE_LIST
-        if (rusiavimas == 1) {
-            Grupe.sort([](const Studentas &a, const Studentas &b) {
-                if (a.pavarde == b.pavarde)
-                    return a.vardas < b.vardas;
-                return a.pavarde < b.pavarde;
-            });
-        } else if (rusiavimas == 2) {
-            Grupe.sort([](const Studentas &a, const Studentas &b) {
-                if (a.vardas == b.vardas)
-                    return a.pavarde < b.pavarde;
-                return a.vardas < b.vardas;
-            });
-        }
-    #else
-        if (rusiavimas == 1) {
-            sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-                if (a.pavarde == b.pavarde)
-                    return a.vardas < b.vardas;
-                return a.pavarde < b.pavarde;
-            });
-        } else if (rusiavimas == 2) {
-            sort(Grupe.begin(), Grupe.end(), [](const Studentas &a, const Studentas &b) {
-                if (a.vardas == b.vardas)
-                    return a.pavarde < b.pavarde;
-                return a.vardas < b.vardas;
-            });
-        }
-    #endif
+    if (rusiavimas == 1) {
+        sort(Grupe.begin(), Grupe.end(), comparePagalPavarde);
+    } else if (rusiavimas == 2) {
+        sort(Grupe.begin(), Grupe.end(), comparePagalVarda);
+    }
 
     int rezultatoTipas;
     cout << "\nPasirinkite kokius galutinius rezultatus isvesti:\n";
@@ -176,7 +150,6 @@ int main()
     if (pasirinkimas == 2) {
         double bendrasLaikas = skaitymolaikas + rusiavimolaikas + isvedimolaikas;
 
-        cout << "Konteineris: " << CONTAINER_TYPE << endl;
         cout << "Strategija: " << strategija << endl;
         cout << "Failo " << failo_pav << " irasu nuskaitymo laikas: "
              << fixed << setprecision(6) << skaitymolaikas << " s" << endl;

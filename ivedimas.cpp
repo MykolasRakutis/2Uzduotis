@@ -1,15 +1,12 @@
 #include "ivedimas.h"
-#include "skaiciavimai.h"
 #include <iostream>
-#include <sstream>
 #include <cstdlib>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::stringstream;
-using std::stoi;
+using std::vector;
 
 bool tikRaides(const string &s) {
     for (char c : s) {
@@ -20,27 +17,29 @@ bool tikRaides(const string &s) {
 
 Studentas Stud_ivestis(int nr)
 {
-    int laik_paz, sum = 0;
-    string eilute;
-    Studentas pirmas;
+    string vardas_temp, pavarde_temp;
+    Studentas st;
 
     cout << "\nIveskite " << nr << "-ojo studento duomenis" << endl;
+
     do {
         cout << "Vardas: ";
-        cin >> pirmas.vardas;
-        if (!tikRaides(pirmas.vardas)){
-                cout << "Varde negali buti skaiciu ar simboliu\n";
+        cin >> vardas_temp;
+        if (!tikRaides(vardas_temp)) {
+            cout << "Varde negali buti skaiciu ar simboliu\n";
         }
-    }while (!tikRaides(pirmas.vardas));
+    } while (!tikRaides(vardas_temp));
 
     do {
         cout << "Pavarde: ";
-        cin >> pirmas.pavarde;
-        if (!tikRaides(pirmas.pavarde)) {
+        cin >> pavarde_temp;
+        if (!tikRaides(pavarde_temp)) {
             cout << "Pavardeje negali buti skaiciu ar simboliu\n";
         }
-    } while (!tikRaides(pirmas.pavarde));
+    } while (!tikRaides(pavarde_temp));
 
+    st.setVardas(vardas_temp);
+    st.setPavarde(pavarde_temp);
     cin.ignore(1000, '\n');
 
     int pasirinkimas;
@@ -58,69 +57,42 @@ Studentas Stud_ivestis(int nr)
         cin >> kiek;
         cin.ignore(1000, '\n');
 
+        vector<int> pazymiai;
         cout << "Sugeneruoti namu darbu pazymiai: ";
         for (int i = 0; i < kiek; i++)
         {
-            laik_paz = rand() % 11;
-            pirmas.ndpaz.push_back(laik_paz);
-            sum += laik_paz;
-            cout << laik_paz << " ";
+            int paz = rand() % 11;
+            pazymiai.push_back(paz);
+            cout << paz << " ";
         }
         cout << endl;
 
-        pirmas.egzrez = rand() % 11;
-        cout << "Sugeneruotas egzamino rezultatas: " << pirmas.egzrez << endl;
+        st.setNdpaz(pazymiai);
+
+        int egz = rand() % 11;
+        st.setEgzrez(egz);
+        cout << "Sugeneruotas egzamino rezultatas: " << egz << endl;
     }
     else
     {
-        cout << "Iveskite namu darbu pazymius (baigti tuscia eilute):" << endl;
-        while (true)
-        {
-            getline(cin, eilute);
-            if (eilute.empty()) break;
-
-            stringstream ss(eilute);
-            while (ss >> laik_paz)
-            {
-                if (laik_paz < 0 || laik_paz > 10) {
-                    cout << "Pazymys turi buti tarp 0 ir 10\n";
-                } else {
-                    pirmas.ndpaz.push_back(laik_paz);
-                    sum += laik_paz;
-                }
-            }
-
-            if (ss.fail() && !ss.eof()) {
-                cout << "Pazymys turi buti skaicius\n";
-                ss.clear();
-            }
-        }
-
-        while (true) {
-            cout << "Iveskite egzamino rezultata: ";
-            cin >> eilute;
-            bool valid = true;
-            for (char c : eilute) {
-                if (!isdigit(c)) { valid = false; break; }
-            }
-            if (valid) {
-                pirmas.egzrez = stoi(eilute);
-                break;
+        cout << "Iveskite namu darbu pazymius (baigti -1):" << endl;
+        vector<int> pazymiai;
+        int paz;
+        while (cin >> paz && paz != -1) {
+            if (paz < 0 || paz > 10) {
+                cout << "Pazymys turi buti tarp 0 ir 10\n";
             } else {
-                cout << "Egzaminas turi buti skaicius\n";
+                pazymiai.push_back(paz);
             }
         }
+        st.setNdpaz(pazymiai);
+        cin.ignore(1000, '\n');
+
+        cout << "Iveskite egzamino rezultata: ";
+        cin >> paz;
+        st.setEgzrez(paz);
         cin.ignore(1000, '\n');
     }
 
-    int n = pirmas.ndpaz.size();
-    double vid;
-    if (n > 0) vid = double(sum) / n;
-    else vid = 0;
-    pirmas.galutinis_vid = vid * 0.4 + pirmas.egzrez * 0.6;
-
-    double med = MedSkaiciavimas(pirmas.ndpaz);
-    pirmas.galutinis_med = med * 0.4 + pirmas.egzrez * 0.6;
-
-    return pirmas;
+    return st;
 }
