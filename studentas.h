@@ -24,6 +24,7 @@ private:
     friend Studentas Failas(std::string eilute);
 
 public:
+
     Studentas();
     Studentas(const string& pavarde, const string& vardas,
               const vector<int>& ndpaz, int egzrez);
@@ -47,7 +48,6 @@ public:
     friend bool comparePagalPavarde(const Studentas& a, const Studentas& b);
     friend bool comparePagalVarda(const Studentas& a, const Studentas& b);
     friend bool comparePagalBala(const Studentas& a, const Studentas& b, bool);
-
     friend ostream& operator<<(ostream& os, const Studentas& st);
 };
 

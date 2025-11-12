@@ -26,7 +26,6 @@ bool Studentas::arValidusPazymys(int paz) const {
 }
 
 void Studentas::setVardas(const string& vardas) {
-
     bool valid = true;
     for (char c : vardas) {
         if (!isalpha(c)) {
@@ -40,7 +39,6 @@ void Studentas::setVardas(const string& vardas) {
 }
 
 void Studentas::setPavarde(const string& pavarde) {
-
     bool valid = true;
     for (char c : pavarde) {
         if (!isalpha(c)) {

@@ -25,6 +25,22 @@ int main()
 {
     srand(time(0));
 
+    #ifdef __OPTIMIZE__
+        #if __OPTIMIZE__ == 1
+            cout << "Kompiliavimo flag: -O1 (Bazinis optimizavimas)" << endl;
+        #elif __OPTIMIZE__ == 2
+            cout << "Kompiliavimo flag: -O2 (Vidutinis optimizavimas)" << endl;
+        #elif __OPTIMIZE__ == 3
+            cout << "Kompiliavimo flag: -O3 (Maksimalus optimizavimas)" << endl;
+        #else
+            cout << "Kompiliavimo flag: -O" << __OPTIMIZE__ << endl;
+        #endif
+    #else
+        cout << "Kompiliavimo flag: -O0 (Jokio optimizavimo)" << endl;
+    #endif
+
+    cout << endl;
+
     int kurti;
     cout << "Ar norite sugeneruoti 5 studentu failus? (1 - Taip, 0 - Ne): ";
     cin >> kurti;
