@@ -30,4 +30,12 @@ VECTOR:
 <img width="663" height="176" alt="Ekrano kopija 2025-11-12 194833" src="https://github.com/user-attachments/assets/37ae309c-7954-468a-861b-0f3ffd67483f" />
 <img width="673" height="176" alt="Ekrano kopija 2025-11-12 194924" src="https://github.com/user-attachments/assets/f0042e03-8323-4412-b3f7-ca38d38fba39" />
 
+| Kompiliavimo flag    | Duomenų kiekis | Nuskaitymo laikas (s) | Dalijimo laikas (s) | Išvedimo laikas (s) | Bendras laikas (s) |
+| -------------------- | -------------- | --------------------- | ------------------- | ------------------- | ------------------ |
+| **-O1 (Bazinis)**    | 100 000        | 0.107795              | 0.023607            | 0.246897            | **0.378299**       |
+| **-O1 (Bazinis)**    | 1 000 000      | 0.826251              | 0.221444            | 2.558637            | **3.606332**       |
+| **-O2 (Vidutinis)**  | 100 000        | 0.090061              | 0.028645            | 0.268889            | **0.387596**       |
+| **-O2 (Vidutinis)**  | 1 000 000      | 0.849475              | 0.224988            | 2.549217            | **3.623680**       |
+| **-O3 (Maksimalus)** | 100 000        | 0.098247              | 0.020151            | 0.246951            | **0.365349**       |
+| **-O3 (Maksimalus)** | 1 000 000      | 0.819198              | 0.218159            | 2.656032            | **3.693389**       |
 
