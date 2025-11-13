@@ -39,6 +39,8 @@ VECTOR:
 | **-O3 (Maksimalus)** | 100 000        | 0.098247              | 0.020151            | 0.246951            | **0.365349**       |
 | **-O3 (Maksimalus)** | 1 000 000      | 0.819198              | 0.218159            | 2.656032            | **3.693389**       |
 
+std::vector su optimizavimo flagais veikia šiektiek greičiau, bet skirtumai tarp -O1, -O2, -O3 yra minimalūs.
+
 KLASĖ:
 
 <img width="667" height="156" alt="Ekrano kopija 2025-11-12 192448" src="https://github.com/user-attachments/assets/7b2d5c7e-3bcc-4031-ba70-12f975a232a3" />
@@ -56,3 +58,9 @@ KLASĖ:
 | **-O2 (Vidutinis)**  | 1 000 000      | 0.844134              | 0.242318            | 2.548001            | **3.634453**       |
 | **-O3 (Maksimalus)** | 100 000        | 0.092441              | 0.028131            | 0.254416            | **0.374988**       |
 | **-O3 (Maksimalus)** | 1 000 000      | 0.865431              | 0.244686            | 2.572646            | **3.682764**       |
+
+Klasės realizacijoje optimizavimo flagai daro labai mažą įtaką veikimo laikui.
+
+IŠVADA:
+
+Kompiliatoriaus optimizavimo flagai nežymiai pagreitina veikimą, nes didžiąją dalį laiko užima failų skaitymas ir rašymas.
