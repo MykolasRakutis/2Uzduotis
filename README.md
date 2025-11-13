@@ -39,3 +39,11 @@ VECTOR:
 | **-O3 (Maksimalus)** | 100 000        | 0.098247              | 0.020151            | 0.246951            | **0.365349**       |
 | **-O3 (Maksimalus)** | 1 000 000      | 0.819198              | 0.218159            | 2.656032            | **3.693389**       |
 
+KLASĖ:
+
+<img width="667" height="156" alt="Ekrano kopija 2025-11-12 192448" src="https://github.com/user-attachments/assets/7b2d5c7e-3bcc-4031-ba70-12f975a232a3" />
+<img width="675" height="157" alt="Ekrano kopija 2025-11-12 192518" src="https://github.com/user-attachments/assets/a0caf603-d5c5-4d32-b6a3-5fd0900d0d5e" />
+<img width="660" height="155" alt="Ekrano kopija 2025-11-12 192719" src="https://github.com/user-attachments/assets/47b5dc61-235e-4539-bbec-a1ef06fb464d" />
+<img width="671" height="155" alt="Ekrano kopija 2025-11-12 192806" src="https://github.com/user-attachments/assets/7870016b-77b0-433a-801f-4bb3ee8d7856" />
+<img width="659" height="154" alt="Ekrano kopija 2025-11-12 192903" src="https://github.com/user-attachments/assets/e0408df9-38e8-4b56-b03b-1b55c6501263" />
+<img width="671" height="158" alt="Ekrano kopija 2025-11-12 193342" src="https://github.com/user-attachments/assets/ffdf0c78-ec76-422c-bf70-c073237ec53b" />
