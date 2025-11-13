@@ -47,3 +47,12 @@ KLASĖ:
 <img width="671" height="155" alt="Ekrano kopija 2025-11-12 192806" src="https://github.com/user-attachments/assets/7870016b-77b0-433a-801f-4bb3ee8d7856" />
 <img width="659" height="154" alt="Ekrano kopija 2025-11-12 192903" src="https://github.com/user-attachments/assets/e0408df9-38e8-4b56-b03b-1b55c6501263" />
 <img width="671" height="158" alt="Ekrano kopija 2025-11-12 193342" src="https://github.com/user-attachments/assets/ffdf0c78-ec76-422c-bf70-c073237ec53b" />
+
+| Kompiliavimo flag    | Duomenų kiekis | Nuskaitymo laikas (s) | Dalijimo laikas (s) | Išvedimo laikas (s) | Bendras laikas (s) |
+| -------------------- | -------------- | --------------------- | ------------------- | ------------------- | ------------------ |
+| **-O1 (Bazinis)**    | 100 000        | 0.126791              | 0.028535            | 0.281762            | **0.437088**       |
+| **-O1 (Bazinis)**    | 1 000 000      | 0.900298              | 0.269834            | 2.534508            | **3.704639**       |
+| **-O2 (Vidutinis)**  | 100 000        | 0.114340              | 0.025663            | 0.254347            | **0.394350**       |
+| **-O2 (Vidutinis)**  | 1 000 000      | 0.844134              | 0.242318            | 2.548001            | **3.634453**       |
+| **-O3 (Maksimalus)** | 100 000        | 0.092441              | 0.028131            | 0.254416            | **0.374988**       |
+| **-O3 (Maksimalus)** | 1 000 000      | 0.865431              | 0.244686            | 2.572646            | **3.682764**       |
