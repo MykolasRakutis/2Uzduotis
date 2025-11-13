@@ -24,11 +24,20 @@ private:
     friend Studentas Failas(std::string eilute);
 
 public:
-
     Studentas();
     Studentas(const string& pavarde, const string& vardas,
               const vector<int>& ndpaz, int egzrez);
     Studentas(istream& is);
+
+    Studentas(const Studentas& other);
+
+    Studentas& operator=(const Studentas& other);
+
+    Studentas(Studentas&& other) noexcept;
+
+    Studentas& operator=(Studentas&& other) noexcept;
+
+    ~Studentas();
 
     inline string vardas() const { return vardas_; }
     inline string pavarde() const { return pavarde_; }

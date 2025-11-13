@@ -21,6 +21,59 @@ Studentas::Studentas(istream& is) : egzrez_(0), galutinis_vid_(0), galutinis_med
     readStudent(is);
 }
 
+Studentas::Studentas(const Studentas& other)
+    : vardas_(other.vardas_),
+      pavarde_(other.pavarde_),
+      ndpaz_(other.ndpaz_),
+      egzrez_(other.egzrez_),
+      galutinis_vid_(other.galutinis_vid_),
+      galutinis_med_(other.galutinis_med_) {
+}
+
+Studentas& Studentas::operator=(const Studentas& other) {
+    if (this != &other) {
+        vardas_ = other.vardas_;
+        pavarde_ = other.pavarde_;
+        ndpaz_ = other.ndpaz_;
+        egzrez_ = other.egzrez_;
+        galutinis_vid_ = other.galutinis_vid_;
+        galutinis_med_ = other.galutinis_med_;
+    }
+    return *this;
+}
+
+Studentas::Studentas(Studentas&& other) noexcept
+    : vardas_(std::move(other.vardas_)),
+      pavarde_(std::move(other.pavarde_)),
+      ndpaz_(std::move(other.ndpaz_)),
+      egzrez_(other.egzrez_),
+      galutinis_vid_(other.galutinis_vid_),
+      galutinis_med_(other.galutinis_med_) {
+    other.egzrez_ = 0;
+    other.galutinis_vid_ = 0;
+    other.galutinis_med_ = 0;
+}
+
+Studentas& Studentas::operator=(Studentas&& other) noexcept {
+    if (this != &other) {
+        vardas_ = std::move(other.vardas_);
+        pavarde_ = std::move(other.pavarde_);
+        ndpaz_ = std::move(other.ndpaz_);
+        egzrez_ = other.egzrez_;
+        galutinis_vid_ = other.galutinis_vid_;
+        galutinis_med_ = other.galutinis_med_;
+
+        other.egzrez_ = 0;
+        other.galutinis_vid_ = 0;
+        other.galutinis_med_ = 0;
+    }
+    return *this;
+}
+
+Studentas::~Studentas() {
+
+}
+
 bool Studentas::arValidusPazymys(int paz) const {
     return paz >= 0 && paz <= 10;
 }
