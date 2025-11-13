@@ -14,3 +14,7 @@ VEKTORIAI:
 | **`std::vector` – 1000000**  | 1.365846              | 0.949838                        | 2.493916            | **4.809599**       |
 | **Klasės – 100000**          | 0.153601              | 0.087528                        | 0.253198            | **0.494326**       |
 | **Klasės – 1000000**         | 1.533729              | 0.920790                        | 2.615805            | **5.070324**       |
+
+IŠVADA:
+
+Su 100000 duomenų vector ir klasės laikas labai panašus, o su 1000000 duomenų vector šiek tiek greitesnis (apie 5-6%).
