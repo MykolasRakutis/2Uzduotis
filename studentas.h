@@ -57,11 +57,23 @@ public:
     friend bool comparePagalPavarde(const Studentas& a, const Studentas& b);
     friend bool comparePagalVarda(const Studentas& a, const Studentas& b);
     friend bool comparePagalBala(const Studentas& a, const Studentas& b, bool);
+
     friend ostream& operator<<(ostream& os, const Studentas& st);
+    friend istream& operator>>(istream& is, Studentas& st);
+
+    bool operator==(const Studentas& other) const;
+    bool operator!=(const Studentas& other) const;
+    bool operator<(const Studentas& other) const;
+    bool operator>(const Studentas& other) const;
+    bool operator<=(const Studentas& other) const;
+    bool operator>=(const Studentas& other) const;
 };
 
 bool comparePagalPavarde(const Studentas& a, const Studentas& b);
 bool comparePagalVarda(const Studentas& a, const Studentas& b);
 bool comparePagalBala(const Studentas& a, const Studentas& b, bool naudotiVidurki = true);
+
+ostream& operator<<(ostream& os, const Studentas& st);
+istream& operator>>(istream& is, Studentas& st);
 
 #endif

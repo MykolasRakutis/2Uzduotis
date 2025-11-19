@@ -71,7 +71,6 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept {
 }
 
 Studentas::~Studentas() {
-
 }
 
 bool Studentas::arValidusPazymys(int paz) const {
@@ -169,6 +168,39 @@ ostream& operator<<(ostream& os, const Studentas& st) {
        << ", Galutinis(vid): " << st.galutinis_vid_
        << ", Galutinis(med): " << st.galutinis_med_;
     return os;
+}
+
+istream& operator>>(istream& is, Studentas& st) {
+    return st.readStudent(is);
+}
+
+bool Studentas::operator==(const Studentas& other) const {
+    return vardas_ == other.vardas_ &&
+           pavarde_ == other.pavarde_ &&
+           egzrez_ == other.egzrez_ &&
+           ndpaz_ == other.ndpaz_;
+}
+
+bool Studentas::operator!=(const Studentas& other) const {
+    return !(*this == other);
+}
+
+bool Studentas::operator<(const Studentas& other) const {
+    if (pavarde_ != other.pavarde_)
+        return pavarde_ < other.pavarde_;
+    return vardas_ < other.vardas_;
+}
+
+bool Studentas::operator>(const Studentas& other) const {
+    return other < *this;
+}
+
+bool Studentas::operator<=(const Studentas& other) const {
+    return !(*this > other);
+}
+
+bool Studentas::operator>=(const Studentas& other) const {
+    return !(*this < other);
 }
 
 bool comparePagalPavarde(const Studentas& a, const Studentas& b) {
