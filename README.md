@@ -2,7 +2,7 @@ RULE OF THREE:
 
 Programoje Studentas klasė turi kopijavimo konstruktorių, kuris sukuria pilną objekto kopiją, priskirties operatorių, kuris saugiai priskiria vieną objektą kitam (su savęs priskyrimo patikra), ir destruktorių, kuris atlaisvina resursus. Šie trys metodai reikalingi, nes klasė naudoja dinaminius duomenis, kuriuos reikia tinkamai kopijuoti ir išvalyti iš atminties.
 
-DUOMENŲ ĮVESTIS
+DUOMENŲ ĮVESTIS:
 
 Sistema turi tris būdus įvesti studentų duomenis:
 
@@ -18,7 +18,7 @@ Automatinės įvesties metu programa sugeneruoja atsitiktinius pažymius nuo 0 i
 
 Programoje realuzuota failo nuskaitymo funkcija, kuri skaito eilutes iš tekstinio failo, kur kiekviena eilutė turi studento pavardę, vardą, namų darbų pažymius ir egzamino rezultatą. Failai gali turėti tūkstančius ar net milijonus studentų. Sistema matuoja nuskaitymo laiką ir saugiai apdoroja kiekvieną eilutę konvertuodama ją į Studentas objektą.
 
-DUOMENŲ IŠVESTIS
+DUOMENŲ IŠVESTIS:
 
 Sistema turi du duomenų išvesties būdus:
 
