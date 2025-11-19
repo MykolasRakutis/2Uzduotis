@@ -1,3 +1,7 @@
+RULE OF THREE:
+
+Programoje Studentas klasė turi kopijavimo konstruktorių, kuris sukuria pilną objekto kopiją, priskirties operatorių, kuris saugiai priskiria vieną objektą kitam (su savęs priskyrimo patikra), ir destruktorių, kuris atlaisvina resursus. Šie trys metodai reikalingi, nes klasė naudoja dinaminius duomenis, kuriuos reikia tinkamai kopijuoti ir išvalyti iš atminties.
+
 DUOMENŲ ĮVESTIS
 
 Sistema turi tris būdus įvesti studentų duomenis:
