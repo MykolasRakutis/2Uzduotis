@@ -18,8 +18,8 @@ Studentas Failas(string eilute)
     ss >> pavarde >> vardas;
 
     Studentas s;
-    s.pavarde_ = pavarde;
-    s.vardas_ = vardas;
+    s.setPavarde(pavarde);
+    s.setVardas(vardas);
 
     int paz;
     vector<int> laikpaz;
@@ -30,9 +30,8 @@ Studentas Failas(string eilute)
     if (!laikpaz.empty()) {
         int egzrez = laikpaz.back();
         laikpaz.pop_back();
-        s.ndpaz_ = laikpaz;
-        s.egzrez_ = egzrez;
-        s.skaiciuotiGalutinius();
+        s.setNdpaz(laikpaz);
+        s.setEgzrez(egzrez);
     }
 
     return s;

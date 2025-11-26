@@ -6,24 +6,24 @@
 using std::stringstream;
 using std::sort;
 
-Studentas::Studentas() : vardas_(""), pavarde_(""), egzrez_(0),
-                          galutinis_vid_(0), galutinis_med_(0) {
+Studentas::Studentas()
+    : Zmogus(), egzrez_(0), galutinis_vid_(0), galutinis_med_(0) {
 }
 
 Studentas::Studentas(const string& pavarde, const string& vardas,
                       const vector<int>& ndpaz, int egzrez)
-    : vardas_(vardas), pavarde_(pavarde), ndpaz_(ndpaz), egzrez_(egzrez),
+    : Zmogus(pavarde, vardas), ndpaz_(ndpaz), egzrez_(egzrez),
       galutinis_vid_(0), galutinis_med_(0) {
     skaiciuotiGalutinius();
 }
 
-Studentas::Studentas(istream& is) : egzrez_(0), galutinis_vid_(0), galutinis_med_(0) {
+Studentas::Studentas(istream& is)
+    : Zmogus(), egzrez_(0), galutinis_vid_(0), galutinis_med_(0) {
     readStudent(is);
 }
 
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_),
-      pavarde_(other.pavarde_),
+    : Zmogus(other),
       ndpaz_(other.ndpaz_),
       egzrez_(other.egzrez_),
       galutinis_vid_(other.galutinis_vid_),
@@ -32,8 +32,7 @@ Studentas::Studentas(const Studentas& other)
 
 Studentas& Studentas::operator=(const Studentas& other) {
     if (this != &other) {
-        vardas_ = other.vardas_;
-        pavarde_ = other.pavarde_;
+        Zmogus::operator=(other);
         ndpaz_ = other.ndpaz_;
         egzrez_ = other.egzrez_;
         galutinis_vid_ = other.galutinis_vid_;
@@ -43,8 +42,7 @@ Studentas& Studentas::operator=(const Studentas& other) {
 }
 
 Studentas::Studentas(Studentas&& other) noexcept
-    : vardas_(std::move(other.vardas_)),
-      pavarde_(std::move(other.pavarde_)),
+    : Zmogus(std::move(other)),
       ndpaz_(std::move(other.ndpaz_)),
       egzrez_(other.egzrez_),
       galutinis_vid_(other.galutinis_vid_),
@@ -56,8 +54,7 @@ Studentas::Studentas(Studentas&& other) noexcept
 
 Studentas& Studentas::operator=(Studentas&& other) noexcept {
     if (this != &other) {
-        vardas_ = std::move(other.vardas_);
-        pavarde_ = std::move(other.pavarde_);
+        Zmogus::operator=(std::move(other));
         ndpaz_ = std::move(other.ndpaz_);
         egzrez_ = other.egzrez_;
         galutinis_vid_ = other.galutinis_vid_;
@@ -75,32 +72,6 @@ Studentas::~Studentas() {
 
 bool Studentas::arValidusPazymys(int paz) const {
     return paz >= 0 && paz <= 10;
-}
-
-void Studentas::setVardas(const string& vardas) {
-    bool valid = true;
-    for (char c : vardas) {
-        if (!isalpha(c)) {
-            valid = false;
-            break;
-        }
-    }
-    if (valid && !vardas.empty()) {
-        vardas_ = vardas;
-    }
-}
-
-void Studentas::setPavarde(const string& pavarde) {
-    bool valid = true;
-    for (char c : pavarde) {
-        if (!isalpha(c)) {
-            valid = false;
-            break;
-        }
-    }
-    if (valid && !pavarde.empty()) {
-        pavarde_ = pavarde;
-    }
 }
 
 void Studentas::setNdpaz(const vector<int>& ndpaz) {
@@ -162,12 +133,11 @@ istream& Studentas::readStudent(istream& is) {
     return is;
 }
 
-ostream& operator<<(ostream& os, const Studentas& st) {
-    os << "Vardas: " << st.vardas_ << ", Pavarde: " << st.pavarde_
-       << ", Egzaminas: " << st.egzrez_
-       << ", Galutinis(vid): " << st.galutinis_vid_
-       << ", Galutinis(med): " << st.galutinis_med_;
-    return os;
+void Studentas::spausdinti(ostream& os) const {
+    os << "Vardas: " << vardas_ << ", Pavarde: " << pavarde_
+       << ", Egzaminas: " << egzrez_
+       << ", Galutinis(vid): " << galutinis_vid_
+       << ", Galutinis(med): " << galutinis_med_;
 }
 
 istream& operator>>(istream& is, Studentas& st) {
