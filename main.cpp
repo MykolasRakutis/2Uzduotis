@@ -187,6 +187,6 @@ int main()
                 break;
         }
     }
-
+ //Zmogus z;
     return 0;
 }
