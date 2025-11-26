@@ -38,7 +38,7 @@ Zmogus::~Zmogus() {
 void Zmogus::setVardas(const string& vardas) {
     bool valid = true;
     for (char c : vardas) {
-        if (!isalpha(c)) {
+        if (!isalnum(c)) {
             valid = false;
             break;
         }
@@ -51,7 +51,7 @@ void Zmogus::setVardas(const string& vardas) {
 void Zmogus::setPavarde(const string& pavarde) {
     bool valid = true;
     for (char c : pavarde) {
-        if (!isalpha(c)) {
+        if (!isalnum(c)) {
             valid = false;
             break;
         }
