@@ -41,3 +41,8 @@ V1.5 RELEASE
 
 Programos veikimas nepakito, tačiau iš vienos klasės Studentas buvo pakeista į dvi: bazinę abstrakčią klasę Zmogus ir išvestinę klasę Studentas.
 
+V2.0 RELEASE
+
+Sukurta Doxygen dokumentacija (HTML katalogo formatu) ir įkelta į projekto repozitoriją.
+Realizuoti Unit testai.
+Aprašyta programos naudojimo instrukcija.
