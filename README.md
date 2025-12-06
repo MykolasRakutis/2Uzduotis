@@ -20,4 +20,4 @@ PROGRAMOS NAUDOJIMO INSTRUKCIJA
 
 10.Sukuriami failai.
 
-11.Unit testų paleidimas - Terminale įvesti .\test_studentas.exe
+11.Unit testų paleidimas - Terminale įvesti .\test_runner.exe
