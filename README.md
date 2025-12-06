@@ -21,3 +21,16 @@ PROGRAMOS NAUDOJIMO INSTRUKCIJA
 10.Sukuriami failai.
 
 11.Unit testų paleidimas - Terminale įvesti .\test_runner.exe
+
+
+V1.1 RELEASE
+
+Studentų duomenų struktūra perkelta iš struct į class.
+
+Sukurti ir realizuoti visi būtini klasės metodai.
+
+Programa optimizuota naudojant kompiliatoriaus optimizavimo flagus O1, O2 ir O3.
+
+Atliktas našumo palyginimas tarp struct ir class versijų
+
+
