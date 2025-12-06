@@ -37,5 +37,7 @@ V1.2 RELEASE
 
 Pilnai implementuota Rule of Three: papildytas kopijavimo konstruktorius, priskyrimo operatorius ir destruktorius.
 
+V1.5 RELEASE
 
+Programos veikimas nepakito, tačiau iš vienos klasės Studentas buvo pakeista į dvi: bazinę abstrakčią klasę Zmogus ir išvestinę klasę Studentas.
 
