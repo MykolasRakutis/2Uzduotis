@@ -33,4 +33,9 @@ Programa optimizuota naudojant kompiliatoriaus optimizavimo flagus O1, O2 ir O3.
 
 Atliktas našumo palyginimas tarp struct ir class versijų
 
+V1.2 RELEASE
+
+Pilnai implementuota Rule of Three: papildytas kopijavimo konstruktorius, priskyrimo operatorius ir destruktorius.
+
+
 
